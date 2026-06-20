@@ -143,6 +143,14 @@ section {
   align-items: center; justify-content: center;
   text-align: center;
   padding: 40px 24px;
+  position: relative;
+}
+#hero::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 140px;
+  background: linear-gradient(to bottom, transparent, #faf6f0);
+  pointer-events: none;
 }
 .hero-badge {
   display: inline-block;
@@ -1205,6 +1213,48 @@ section {
   transition: all 0.3s ease;
 }
 .flower-btn:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(212,112,138,0.45); }
+.final-body {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 0; max-width: 480px; margin: 0 auto 52px;
+}
+.final-verse {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.05rem, 2.8vw, 1.3rem);
+  color: var(--text-mid);
+  line-height: 1.85; text-align: center;
+  padding: 22px 0;
+  border-bottom: 1px solid rgba(197,184,232,0.18);
+  width: 100%;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.final-verse.visible { opacity: 1; transform: translateY(0); }
+.final-verse--warm {
+  color: var(--text-dark);
+  font-size: clamp(1.15rem, 3.2vw, 1.55rem);
+  font-style: italic; border-bottom: none;
+}
+.final-closing {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
+  font-style: italic; color: var(--deep-pink);
+  line-height: 1.9; text-align: center;
+  padding-top: 10px; width: 100%;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.final-closing.visible { opacity: 1; transform: translateY(0); }
+.final-secret-hint {
+  margin-top: 48px;
+  font-size: 0.55rem; letter-spacing: 0.5em;
+  color: rgba(197,184,232,0.4);
+  cursor: pointer; user-select: none;
+  transition: color 0.3s ease;
+  opacity: 0; transform: translateY(10px);
+  transition: opacity 0.7s ease 0.5s, transform 0.7s ease 0.5s, color 0.3s ease;
+}
+.final-secret-hint.visible { opacity: 1; transform: translateY(0); }
+.final-secret-hint:hover { color: rgba(212,112,138,0.6); }
 .petal-fall {
   position: absolute;
   font-size: 1.2rem;
@@ -1212,6 +1262,29 @@ section {
   animation: petalFall linear forwards;
   top: -40px;
 }
+
+/* ===================== ROOM NAV ===================== */
+#room-nav {
+  position: fixed;
+  right: 16px; top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 9px;
+  z-index: 100;
+  opacity: 0; transition: opacity 0.6s ease;
+}
+#room-nav.visible { opacity: 1; }
+.room-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(180,140,200,0.28);
+  cursor: pointer;
+  transition: background 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+}
+.room-dot:hover { background: rgba(212,112,138,0.5); transform: scale(1.3); }
+.room-dot.active {
+  background: var(--deep-pink);
+  transform: scale(1.5);
+  box-shadow: 0 0 8px rgba(212,112,138,0.5);
+}
+@media (max-width: 768px) { #room-nav { display: none; } }
 
 /* ===================== MUSIC PLAYER ===================== */
 #music-now-playing {
@@ -1625,7 +1698,7 @@ section {
   font-style: italic;
 }
 @media (max-width: 600px) {
-  .portrait-stack { max-width: 300px; gap: 48px; }
+  .portrait-stack { max-width: 100%; gap: 28px; }
 }
 #portrait { text-align: center; padding-bottom: 120px; }
 .portrait-label { color: var(--text-light); }
@@ -1663,6 +1736,18 @@ section {
 
 <!-- ===================== EASTER EGG STAR ===================== -->
 <audio id="fine-audio" src="fine.mp3" loop></audio>
+<nav id="room-nav" aria-label="Room navigation">
+  <div class="room-dot" data-section="hero" title="Opening"></div>
+  <div class="room-dot" data-section="entrance" title="Room 01"></div>
+  <div class="room-dot" data-section="gallery" title="Room 02"></div>
+  <div class="room-dot" data-section="fairytale" title="Room 03"></div>
+  <div class="room-dot" data-section="special" title="Room 04"></div>
+  <div class="room-dot" data-section="portrait" title="Room 05"></div>
+  <div class="room-dot" data-section="messages" title="Room 06"></div>
+  <div class="room-dot" data-section="letters" title="Room 07"></div>
+  <div class="room-dot" data-section="final" title="Room 08"></div>
+</nav>
+
 <div id="music-now-playing">
   <div class="np-cover">🌸</div>
   <div class="np-info">
@@ -2053,6 +2138,8 @@ section {
   <div class="cloud" style="width:220px;height:35px;top:55%;left:-90px;animation-duration:40s;animation-delay:15s;"></div>
 
   <p class="section-label animate-on-scroll" style="color:var(--text-light)">Clinical Room · Room 03</p>
+  <div class="section-divider animate-on-scroll"></div>
+  <p class="section-desc animate-on-scroll" style="color:var(--text-mid);margin-bottom:32px">"A professional evaluation — for the record."</p>
 
   <div class="clinical-doc animate-on-scroll">
 
@@ -2289,7 +2376,7 @@ section {
     <div class="msg-photo-frame">
       <img src="dada5.jpg" alt="" class="msg-photo-img">
     </div>
-    <p class="msg-photo-caption">"She deserves every kind word in the world."</p>
+    <p class="msg-photo-caption">"You deserve every kind word in the world."</p>
     <div class="exhibit-tag">Exhibit No. 06 · Messages for Cloudy Days</div>
     <div class="msg-open-btn">
       <span>Open your message</span>
@@ -2384,11 +2471,32 @@ section {
   <div class="sparkle-container" id="final-sparkles"></div>
   <p class="section-label animate-on-scroll">Final Room · Room 08</p>
   <h2 class="final-title animate-on-scroll">"Thank you for visiting."</h2>
-  <p class="final-desc animate-on-scroll">
-    "I know things might feel a little heavy lately.<br>
-    But I'm really glad you're here."
-  </p>
-  <button class="flower-btn" onclick="spawnPetals(this)">One More Flower 🌷</button>
+  <div class="section-divider animate-on-scroll"></div>
+
+  <div class="final-body">
+    <p class="final-verse animate-on-scroll">
+      You made it through every room.<br>
+      Every headline. Every letter.<br>
+      Every word written here.
+    </p>
+    <p class="final-verse animate-on-scroll" style="transition-delay:0.1s">
+      This museum was built from one simple belief —<br>
+      that you are worth the effort<br>
+      of being seen and remembered.
+    </p>
+    <p class="final-verse final-verse--warm animate-on-scroll" style="transition-delay:0.2s">
+      Not someday.<br>
+      Right now.<br>
+      Exactly as you are.
+    </p>
+    <p class="final-closing animate-on-scroll" style="transition-delay:0.3s">
+      "Go gently, Dada.<br>
+      The world is better with you in it." 🌷
+    </p>
+  </div>
+
+  <button class="flower-btn" id="flower-btn" onclick="spawnPetals(this)">One More Flower 🌷</button>
+  <p class="final-secret-hint animate-on-scroll">✦ &nbsp; ✦ &nbsp; ✦</p>
 </section>
 
 <!-- ===================== EASTER EGG MODALS ===================== -->
@@ -2673,6 +2781,7 @@ document.getElementById('chat-modal').addEventListener('click', function(e) {
 })();
 
 /* ===================== PETAL RAIN ===================== */
+let _petalCount = 0;
 function spawnPetals(btn) {
   const petals = ['🌷', '🌸', '🌺', '🌹', '💮'];
   for (let i = 0; i < 12; i++) {
@@ -2685,9 +2794,10 @@ function spawnPetals(btn) {
       setTimeout(() => p.remove(), 6000);
     }, i * 80);
   }
-  // Extra bloom effect on button
   btn.style.transform = 'scale(1.05)';
   setTimeout(() => btn.style.transform = '', 300);
+  _petalCount++;
+  if (_petalCount >= 5) { _petalCount = 0; setTimeout(() => openSecretRoom(), 800); }
 }
 
 /* ===================== MUSIC PLAYER ===================== */
@@ -2918,6 +3028,66 @@ function closeSecret() {
     card.style.transitionDelay = `${i * 0.12}s`;
   });
 })();
+
+/* ===================== ROOM NAVIGATION DOTS ===================== */
+(function initRoomNav() {
+  const nav = document.getElementById('room-nav');
+  const dots = Array.from(nav.querySelectorAll('.room-dot'));
+  const sectionIds = ['hero','entrance','gallery','fairytale','special','portrait','messages','letters','final'];
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      const el = document.getElementById(sectionIds[i]);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = sectionIds.indexOf(entry.target.id);
+        if (idx !== -1) {
+          dots.forEach(d => d.classList.remove('active'));
+          dots[idx].classList.add('active');
+          nav.classList.add('visible');
+        }
+      }
+    });
+  }, { threshold: 0.35 });
+
+  sectionIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) obs.observe(el);
+  });
+})();
+
+/* ===================== EASTER EGGS ===================== */
+// Hero title: click 3 times → fun fact modal
+const _easterFacts = [
+  "Every room in this museum took time, care, and a lot of love to build.",
+  "The museum has been visited by exactly one person. That person is you.",
+  "The flower button has a secret. You already found it.",
+  "This museum will be here whenever you need it — no closing hours.",
+  "Someone built this while thinking of you. Every word, every room."
+];
+let _heroClicks = 0, _factIdx = 0;
+const _heroTitle = document.querySelector('.hero-title');
+if (_heroTitle) {
+  _heroTitle.style.cursor = 'default';
+  _heroTitle.addEventListener('click', () => {
+    _heroClicks++;
+    if (_heroClicks >= 3) {
+      _heroClicks = 0;
+      document.getElementById('easter-text').textContent = `"${_easterFacts[_factIdx % _easterFacts.length]}"`;
+      _factIdx++;
+      document.getElementById('easter-modal').classList.add('open');
+    }
+  });
+}
+
+// Secret hint (✦ ✦ ✦ below flower btn) also opens secret room
+const _hint = document.querySelector('.final-secret-hint');
+if (_hint) _hint.addEventListener('click', openSecretRoom);
 </script>
 </body>
 </html>
