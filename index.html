@@ -559,70 +559,103 @@ section {
   position: relative; z-index: 2;
 }
 .special-card {
-  border-radius: 24px; overflow: hidden; position: relative; cursor: default;
-  height: 420px;
+  border-radius: 22px; overflow: hidden;
+  display: flex; flex-direction: column;
+  height: 500px; cursor: default;
   opacity: 0; transform: translateY(40px);
   transition: opacity 0.7s ease, transform 0.7s ease, box-shadow 0.45s ease;
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.09);
 }
 .special-card.visible { opacity: 1; transform: translateY(0); }
 .special-card.visible:hover {
-  transform: translateY(-8px) scale(1.015);
-  box-shadow: 0 24px 70px var(--sc-glow, rgba(255,255,255,0.08)), 0 0 0 1px var(--sc-color, rgba(255,255,255,0.12));
+  transform: translateY(-10px) scale(1.018);
+  box-shadow: 0 28px 80px var(--sc-glow, rgba(255,255,255,0.08)), 0 0 0 1px var(--sc-color, rgba(255,255,255,0.12));
 }
-.sc-belle    { --sc-color:rgba(232,160,180,0.55); --sc-glow:rgba(232,160,180,0.25); background:radial-gradient(ellipse at 50% 25%, rgba(75,22,38,0.95) 0%, rgba(18,8,18,1) 100%); }
-.sc-rapunzel { --sc-color:rgba(197,184,232,0.55); --sc-glow:rgba(197,184,232,0.25); background:radial-gradient(ellipse at 50% 25%, rgba(38,22,75,0.95) 0%, rgba(10,6,22,1) 100%); }
-.sc-elsa     { --sc-color:rgba(143,180,212,0.55); --sc-glow:rgba(143,180,212,0.25); background:radial-gradient(ellipse at 50% 25%, rgba(18,38,68,0.95) 0%, rgba(6,10,22,1) 100%); }
-.sc-moana    { --sc-color:rgba(125,216,196,0.55); --sc-glow:rgba(125,216,196,0.25); background:radial-gradient(ellipse at 50% 25%, rgba(18,48,52,0.95) 0%, rgba(6,14,18,1) 100%); }
+/* Per-character theme variables */
+.sc-belle    { --sc-color:rgba(232,160,180,0.65); --sc-glow:rgba(232,160,180,0.30); }
+.sc-rapunzel { --sc-color:rgba(197,184,232,0.65); --sc-glow:rgba(197,184,232,0.30); }
+.sc-elsa     { --sc-color:rgba(143,196,228,0.65); --sc-glow:rgba(143,196,228,0.30); }
+.sc-moana    { --sc-color:rgba(100,220,190,0.65); --sc-glow:rgba(100,220,190,0.30); }
+
+/* ── Image section (top) ── */
 .sc-art {
-  position: absolute; inset: 0;
-  display: flex; align-items: flex-start; justify-content: center;
-  overflow: hidden;
+  height: 280px; flex-shrink: 0;
+  position: relative; overflow: hidden;
 }
-.sc-art::after {
-  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 52%;
-  background: linear-gradient(to top, rgba(10,5,20,1) 0%, rgba(10,5,20,0.75) 45%, transparent 100%);
-  pointer-events: none; z-index: 1;
-}
+/* Per-character image backgrounds */
+.sc-belle .sc-art    { background: #2e0e1a; }
+.sc-rapunzel .sc-art { background: #16083a; }
+.sc-elsa .sc-art     { background: #1c3050; }
+.sc-moana .sc-art    { background: #0c2030; }
+
 .sc-art img {
   width: 100%; height: 100%;
-  object-fit: contain; object-position: center top;
-  display: block; padding-top: 12px;
-  filter: brightness(0.92) saturate(0.95);
-  transition: filter 0.5s ease, transform 0.6s ease;
+  object-fit: cover; object-position: center 8%;
+  display: block;
+  transition: transform 0.65s cubic-bezier(0.25,0.46,0.45,0.94);
 }
-.special-card.visible:hover .sc-art img {
-  filter: brightness(1.05) saturate(1.1);
-  transform: scale(1.04);
+/* Elsa fix: remove white background with blend mode */
+.sc-elsa .sc-art img { mix-blend-mode: luminosity; filter: saturate(1.3) brightness(1.05); }
+
+.special-card.visible:hover .sc-art img { transform: scale(1.07); }
+
+/* Bottom fade from image into text area */
+.sc-art::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 40px;
+  pointer-events: none; z-index: 1;
 }
+.sc-belle .sc-art::after    { background: linear-gradient(to top, #200a12, transparent); }
+.sc-rapunzel .sc-art::after { background: linear-gradient(to top, #100622, transparent); }
+.sc-elsa .sc-art::after     { background: linear-gradient(to top, #0c1c34, transparent); }
+.sc-moana .sc-art::after    { background: linear-gradient(to top, #081820, transparent); }
+
+/* ── Text section (bottom) ── */
 .sc-body {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 16px 22px 22px; z-index: 2;
+  flex: 1; padding: 20px 24px 26px;
+  display: flex; flex-direction: column; justify-content: center; gap: 6px;
+}
+.sc-belle .sc-body    { background: radial-gradient(ellipse at 60% 0%, rgba(80,18,36,0.96) 0%, #100408 100%); }
+.sc-rapunzel .sc-body { background: radial-gradient(ellipse at 60% 0%, rgba(44,16,80,0.96) 0%, #08040e 100%); }
+.sc-elsa .sc-body     { background: radial-gradient(ellipse at 60% 0%, rgba(16,34,66,0.96) 0%, #060810 100%); }
+.sc-moana .sc-body    { background: radial-gradient(ellipse at 60% 0%, rgba(12,46,50,0.96) 0%, #06100e 100%); }
+
+.sc-meta {
+  display: flex; align-items: center; gap: 7px; margin-bottom: 2px;
 }
 .special-card-num {
-  font-size: 0.57rem; letter-spacing: 0.38em;
-  color: var(--sc-color, rgba(212,168,83,0.7));
-  text-transform: uppercase; display: block; margin-bottom: 3px;
+  font-family: 'Lato', sans-serif; font-size: 0.58rem;
+  font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--sc-color);
 }
+.sc-sep { color: rgba(255,255,255,0.2); font-size: 0.6rem; }
 .sc-character {
-  font-family: 'Cormorant Garamond', serif; font-size: 0.9rem;
-  color: var(--sc-color, rgba(255,255,255,0.5));
-  letter-spacing: 0.18em; font-style: italic;
-  display: block; margin-bottom: 10px; opacity: 0.82;
+  font-family: 'Cormorant Garamond', serif; font-size: 0.82rem;
+  color: rgba(255,255,255,0.42); font-style: italic; letter-spacing: 0.08em;
 }
-.special-card h3 { font-size: 1.44rem; color: white; margin-bottom: 10px; }
+.sc-accent-line {
+  width: 28px; height: 2px; border-radius: 99px;
+  background: var(--sc-color); margin: 2px 0 4px;
+  transition: width 0.4s ease;
+}
+.special-card.visible:hover .sc-accent-line { width: 48px; }
+.special-card h3 {
+  font-size: 1.42rem; color: white; margin: 0; line-height: 1.25;
+  font-family: 'Cormorant Garamond', serif; font-weight: 700;
+}
 .special-card p {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.05rem; color: rgba(255,255,255,0.5);
-  line-height: 1.72; font-style: italic;
+  font-size: 0.9rem; color: rgba(255,255,255,0.5);
+  line-height: 1.72; font-style: italic; margin: 0;
 }
 @media (max-width: 640px) {
-  .special-grid { grid-template-columns: 1fr; gap: 16px; }
-  .special-card { height: 380px; }
+  .special-grid { grid-template-columns: 1fr; gap: 18px; }
+  .special-card { height: 460px; }
+  .sc-art { height: 260px; }
 }
 @media (min-width: 641px) and (max-width: 900px) {
-  .special-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
-  .special-card { height: 380px; }
+  .special-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .special-card { height: 480px; }
+  .sc-art { height: 270px; }
 }
 
 /* ===================== MESSAGES ROOM ===================== */
@@ -1751,11 +1784,15 @@ section {
     <!-- Card 1: Belle -->
     <div class="special-card sc-belle">
       <div class="sc-art">
-        <img src="belle.webp" alt="Belle">
+        <img src="belle.webp" alt="Belle" style="object-position: center 12%;">
       </div>
       <div class="sc-body">
-        <span class="special-card-num">Exhibit 01</span>
-        <span class="sc-character">· Belle ·</span>
+        <div class="sc-meta">
+          <span class="special-card-num">Exhibit 01</span>
+          <span class="sc-sep">·</span>
+          <span class="sc-character">Belle</span>
+        </div>
+        <div class="sc-accent-line"></div>
         <h3>Romantic Heart</h3>
         <p>"You still believe beautiful things exist — and that alone makes the world more beautiful."</p>
       </div>
@@ -1764,11 +1801,15 @@ section {
     <!-- Card 2: Rapunzel -->
     <div class="special-card sc-rapunzel">
       <div class="sc-art">
-        <img src="rapunzel.jpg" alt="Rapunzel">
+        <img src="rapunzel.jpg" alt="Rapunzel" style="object-position: center 10%;">
       </div>
       <div class="sc-body">
-        <span class="special-card-num">Exhibit 02</span>
-        <span class="sc-character">· Rapunzel ·</span>
+        <div class="sc-meta">
+          <span class="special-card-num">Exhibit 02</span>
+          <span class="sc-sep">·</span>
+          <span class="sc-character">Rapunzel</span>
+        </div>
+        <div class="sc-accent-line"></div>
         <h3>The Dreamer</h3>
         <p>"You have lanterns in your eyes — always lit, always looking toward something wonderful."</p>
       </div>
@@ -1777,11 +1818,15 @@ section {
     <!-- Card 3: Elsa -->
     <div class="special-card sc-elsa">
       <div class="sc-art">
-        <img src="elsa.webp" alt="Elsa">
+        <img src="elsa.webp" alt="Elsa" style="object-position: center 5%;">
       </div>
       <div class="sc-body">
-        <span class="special-card-num">Exhibit 03</span>
-        <span class="sc-character">· Elsa ·</span>
+        <div class="sc-meta">
+          <span class="special-card-num">Exhibit 03</span>
+          <span class="sc-sep">·</span>
+          <span class="sc-character">Elsa</span>
+        </div>
+        <div class="sc-accent-line"></div>
         <h3>Inner Strength</h3>
         <p>"You carry quiet power in you. The kind that builds entire worlds out of nothing."</p>
       </div>
@@ -1790,11 +1835,15 @@ section {
     <!-- Card 4: Moana -->
     <div class="special-card sc-moana">
       <div class="sc-art">
-        <img src="moana.webp" alt="Moana">
+        <img src="moana.webp" alt="Moana" style="object-position: center 18%;">
       </div>
       <div class="sc-body">
-        <span class="special-card-num">Exhibit 04</span>
-        <span class="sc-character">· Moana ·</span>
+        <div class="sc-meta">
+          <span class="special-card-num">Exhibit 04</span>
+          <span class="sc-sep">·</span>
+          <span class="sc-character">Moana</span>
+        </div>
+        <div class="sc-accent-line"></div>
         <h3>Brave Spirit</h3>
         <p>"You know who you are — and you sail toward it, even when the ocean is uncertain."</p>
       </div>
