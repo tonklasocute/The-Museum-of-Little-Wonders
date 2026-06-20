@@ -724,234 +724,107 @@ section {
   font-style: italic;
 }
 
-/* ===================== MUSIC GALLERY ===================== */
-#music {
-  min-height: 100vh;
-  background: linear-gradient(160deg, #f5f0fd 0%, #fdf0f5 50%, #f0f5fd 100%);
-  padding: 100px 24px;
+/* ===================== LETTERS NEVER SENT ===================== */
+#letters {
+  background: linear-gradient(160deg, #130c08 0%, #1c1208 50%, #100a05 100%);
+  padding: 100px 24px 120px;
 }
-.music-header { text-align: center; margin-bottom: 64px; }
-.music-hall {
-  max-width: 1000px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 48px;
-}
-/* Song Cards */
-.song-cards-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-}
-.song-card {
-  background: var(--glass);
-  backdrop-filter: blur(12px);
-  border: 1.5px solid var(--glass-border);
-  border-radius: var(--radius-sm);
-  padding: 24px 20px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  box-shadow: var(--shadow-soft);
-  opacity: 0;
-  transform: translateY(30px);
-}
-.song-card.visible { opacity: 1; transform: translateY(0); }
-.song-card::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(197,184,232,0.3), rgba(212,168,83,0.15));
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-.song-card.active::before { opacity: 1; }
-.song-card:hover, .song-card.active {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 16px 48px rgba(197,184,232,0.3);
-}
-.song-note { font-size: 1.5rem; margin-bottom: 12px; }
-.song-title { font-size: 1rem; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; }
-.song-desc {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.9rem;
-  color: var(--text-mid);
-  font-style: italic;
-  line-height: 1.4;
-}
-.song-sparkles {
-  position: absolute; top: 8px; right: 8px;
-  font-size: 0.7rem; opacity: 0;
-  transition: opacity 0.3s ease;
-  color: var(--warm-gold);
-}
-.song-card.active .song-sparkles { opacity: 1; animation: sparkleAnim 1s ease infinite alternate; }
-
-/* Vinyl Player */
-.vinyl-player {
-  background: linear-gradient(160deg, #1e1428, #2a1a38);
-  border-radius: 24px;
-  padding: 40px;
-  display: flex; flex-direction: column; align-items: center; gap: 28px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-}
-.vinyl-record-wrap { position: relative; width: 200px; height: 200px; }
-.vinyl-record {
-  width: 200px; height: 200px;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at center, #3a2a3e 30%, transparent 31%),
-    repeating-conic-gradient(#2a1a2e 0deg 1deg, #1a0a1e 1deg 2deg);
-  box-shadow: 0 0 40px rgba(197,184,232,0.2), inset 0 0 20px rgba(0,0,0,0.5);
-  animation: vinylSpin 4s linear infinite;
-  animation-play-state: paused;
-  position: relative;
-}
-.vinyl-record.playing { animation-play-state: running; }
-.vinyl-center-hole {
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 24px; height: 24px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--soft-pink), var(--lavender));
-  z-index: 2;
-  box-shadow: 0 0 12px rgba(197,184,232,0.6);
-}
-.vinyl-label {
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 70px; height: 70px; border-radius: 50%;
-  background: linear-gradient(135deg, #f5e8f0, #e8e0f8);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.55rem; text-align: center;
-  color: var(--text-mid);
-  letter-spacing: 0.05em;
-  line-height: 1.4;
-  font-weight: 700;
-  text-transform: uppercase;
-  padding: 8px;
-}
-.vinyl-needle {
-  position: absolute;
-  top: -10px; right: 20px;
-  width: 80px; height: 3px;
-  background: linear-gradient(90deg, #8a8090, #c0b8c8);
-  border-radius: 99px;
-  transform-origin: left center;
-  transform: rotate(25deg);
-  transition: transform 0.5s ease;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-}
-.vinyl-needle.playing { transform: rotate(20deg); }
-.vinyl-controls { display: flex; align-items: center; gap: 20px; }
-.vinyl-btn {
-  width: 56px; height: 56px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--soft-pink), var(--lavender));
-  border: none; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.4rem;
-  box-shadow: 0 8px 24px rgba(197,184,232,0.4);
-  transition: all 0.3s ease;
-  color: white;
-}
-.vinyl-btn:hover { transform: scale(1.08); box-shadow: 0 12px 32px rgba(197,184,232,0.5); }
-.vinyl-now-playing {
-  text-align: center;
-  color: rgba(255,255,255,0.6);
-  font-size: 0.8rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
-.vinyl-song-name {
-  color: var(--white);
-  font-family: 'Playfair Display', serif;
-  font-size: 1.2rem;
-  text-align: center;
-  margin-top: 4px;
-}
-.vinyl-volume {
-  display: flex; align-items: center; gap: 12px;
-  width: 100%; max-width: 240px;
-}
-.vinyl-volume-icon { color: rgba(255,255,255,0.5); font-size: 1rem; }
-.vinyl-volume input[type=range] {
-  flex: 1; -webkit-appearance: none;
-  height: 3px; border-radius: 99px;
-  background: rgba(255,255,255,0.15); outline: none;
-  cursor: pointer;
-}
-.vinyl-volume input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 14px; height: 14px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--soft-pink), var(--lavender));
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-}
-.vinyl-tap-hint {
-  font-size: 0.72rem;
-  color: rgba(255,255,255,0.25);
-  letter-spacing: 0.12em;
-  font-style: italic;
-}
-
-/* Spotify Embed */
-.spotify-section {
-  background: var(--glass);
-  backdrop-filter: blur(12px);
-  border: 1.5px solid var(--glass-border);
-  border-radius: var(--radius);
-  padding: 36px;
-  box-shadow: var(--shadow-soft);
-}
-.spotify-title {
-  font-size: 1.5rem;
-  color: var(--text-dark);
-  margin-bottom: 8px;
-}
-.spotify-desc {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  color: var(--text-mid);
-  font-size: 1rem;
-  margin-bottom: 24px;
-  line-height: 1.6;
-}
-.spotify-embed-placeholder {
-  width: 100%;
-  height: 152px;
-  background: linear-gradient(135deg, #1db954 0%, #158a3e 100%);
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  color: white;
-  font-size: 0.9rem;
-  letter-spacing: 0.08em;
-  opacity: 0.85;
-  cursor: pointer;
-  gap: 12px;
+.letters-header { text-align: center; margin-bottom: 72px; }
+.letters-header .section-label { color: rgba(212,168,83,0.55); }
+.letters-header .section-title { color: white; }
+.letters-header .section-desc { color: rgba(255,255,255,0.38); font-style: italic; }
+.letters-stack {
+  display: flex;
   flex-direction: column;
-  box-shadow: 0 8px 24px rgba(29,185,84,0.25);
-  font-family: 'Lato', sans-serif;
+  align-items: center;
+  gap: 36px;
+  max-width: 520px;
+  margin: 0 auto;
 }
-.spotify-embed-placeholder .sp-icon { font-size: 2.5rem; }
-.spotify-embed-placeholder span { font-size: 0.78rem; opacity: 0.7; text-align: center; }
-
-/* Secret easter egg music */
-#vinyl-secret {
-  display: none;
-  background: rgba(212,168,83,0.12);
-  border: 1px solid rgba(212,168,83,0.4);
-  border-radius: 16px;
-  padding: 28px;
-  text-align: center;
-  margin-top: 20px;
-  animation: fadeUp 0.6s ease forwards;
+.letter-card {
+  width: 100%;
+  background: linear-gradient(160deg, #f9f3e6 0%, #f2e9d4 100%);
+  border-radius: 3px;
+  padding: 36px 32px 28px;
+  position: relative;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.45), 0 1px 0 rgba(255,255,255,0.06);
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s ease, transform 0.8s ease, box-shadow 0.35s ease;
+  overflow: hidden;
 }
-#vinyl-secret.show { display: block; }
-#vinyl-secret p {
+.letter-card.visible { opacity: 1; transform: translateY(0); }
+.letter-card:hover {
+  box-shadow: 0 20px 60px rgba(0,0,0,0.55), 0 1px 0 rgba(255,255,255,0.08);
+  transform: translateY(-4px);
+}
+.letter-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #b8903a, #d4a853, #e8c870, #d4a853, #b8903a);
+}
+.letter-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 27px,
+    rgba(0,0,0,0.035) 27px, rgba(0,0,0,0.035) 28px
+  );
+  pointer-events: none;
+}
+.letter-top-rule {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(120,80,20,0.15);
+}
+.letter-seal { font-size: 1.5rem; line-height: 1; margin-top: 2px; }
+.letter-meta { flex: 1; }
+.letter-from {
+  display: block;
+  font-size: 0.58rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #9a7840;
+  margin-bottom: 3px;
+}
+.letter-date {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.88rem;
+  color: #7a5830;
+  font-style: italic;
+}
+.letter-salutation {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  color: #5a3e1a;
+  margin-bottom: 10px;
+  font-style: italic;
+}
+.letter-body {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.1rem;
-  color: var(--gold-light);
+  color: #2a1a06;
+  line-height: 1.85;
+  position: relative; z-index: 1;
+}
+.letter-closing {
+  margin-top: 20px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  color: #9a7840;
   font-style: italic;
-  line-height: 1.7;
+  text-align: right;
+  position: relative; z-index: 1;
+}
+@media (max-width: 600px) {
+  .letters-stack { max-width: 100%; }
+  .letter-card { padding: 28px 22px 22px; }
 }
 
 /* ===================== FINAL EXHIBITION ===================== */
@@ -1633,78 +1506,66 @@ section {
   </div>
 </div>
 
-<!-- ===================== MUSIC GALLERY ===================== -->
-<section id="music">
-  <div class="music-header">
-    <p class="section-label animate-on-scroll">Music Room · Room 06</p>
-    <h2 class="section-title animate-on-scroll">Songs for Cloudy Days</h2>
+<!-- ===================== LETTERS NEVER SENT ===================== -->
+<section id="letters">
+  <div class="letters-header">
+    <p class="section-label animate-on-scroll">Letters Room · Room 06</p>
+    <h2 class="section-title animate-on-scroll">Letters Never Sent</h2>
     <div class="section-divider"></div>
-    <p class="section-desc animate-on-scroll">"For museum walks, rainy evenings, soft hearts, and little daydreams."</p>
+    <p class="section-desc animate-on-scroll">"Found in the museum archive. Author unknown."</p>
   </div>
 
-  <div class="music-hall">
-    <!-- Song cards -->
-    <div class="song-cards-row">
-      <div class="song-card" onclick="selectSong(this, 'Daydream')">
-        <div class="song-sparkles">✦ ✦</div>
-        <div class="song-note">🎵</div>
-        <div class="song-title">Daydream</div>
-        <div class="song-desc">"A song for staring out the window."</div>
-      </div>
-      <div class="song-card" onclick="selectSong(this, 'Golden Hour')">
-        <div class="song-sparkles">✦ ✦</div>
-        <div class="song-note">🎵</div>
-        <div class="song-title">Golden Hour</div>
-        <div class="song-desc">"A song for slow sunsets."</div>
-      </div>
-      <div class="song-card" onclick="selectSong(this, 'Midnight Walk')">
-        <div class="song-sparkles">✦ ✦</div>
-        <div class="song-note">🎵</div>
-        <div class="song-title">Midnight Walk</div>
-        <div class="song-desc">"A song for when your thoughts won't sleep."</div>
-      </div>
-      <div class="song-card" onclick="selectSong(this, 'Little Wonders')">
-        <div class="song-sparkles">✦ ✦</div>
-        <div class="song-note">🎵</div>
-        <div class="song-title">Little Wonders</div>
-        <div class="song-desc">"A song for finding beauty in ordinary things."</div>
-      </div>
-    </div>
-
-    <!-- Vinyl Player -->
-    <div class="vinyl-player animate-on-scroll">
-      <div class="vinyl-now-playing">Now Playing</div>
-      <div class="vinyl-song-name" id="current-song-name">Select a song above</div>
-      <div class="vinyl-record-wrap">
-        <div class="vinyl-record" id="vinyl-record">
-          <div class="vinyl-label" id="vinyl-label">♫</div>
-          <div class="vinyl-center-hole"></div>
+  <div class="letters-stack">
+    <div class="letter-card">
+      <div class="letter-top-rule">
+        <span class="letter-seal">🌷</span>
+        <div class="letter-meta">
+          <span class="letter-from">Found in the archive</span>
+          <span class="letter-date">On the day you felt invisible</span>
         </div>
-        <div class="vinyl-needle" id="vinyl-needle"></div>
       </div>
-      <div class="vinyl-controls">
-        <button class="vinyl-btn" id="play-pause-btn" onclick="togglePlay()">▶</button>
-      </div>
-      <div class="vinyl-volume">
-        <span class="vinyl-volume-icon">♪</span>
-        <input type="range" id="volume-slider" min="0" max="100" value="70">
-        <span class="vinyl-volume-icon">♫</span>
-      </div>
-      <p class="vinyl-tap-hint" id="vinyl-tap-hint">Tap the record 5 times for a secret ✦</p>
-      <div id="vinyl-secret">
-        <p>"Every museum needs background music.<br><br>And every soft heart deserves a favorite song." 🌷</p>
-      </div>
+      <p class="letter-salutation">Dear Dada,</p>
+      <p class="letter-body">I saw you. I saw all of it — the quiet effort, the small things you did when no one was watching. You didn't go unnoticed. Not to me.</p>
+      <p class="letter-closing">— Someone who noticed</p>
     </div>
 
-    <!-- Spotify Placeholder -->
-    <div class="spotify-section animate-on-scroll">
-      <h3 class="spotify-title">Dada's Soundtrack</h3>
-      <p class="spotify-desc">"Songs for romantic museum dates, cloudy afternoons, and hearts that feel everything a little too deeply."</p>
-      <div class="spotify-embed-placeholder" onclick="alert('Replace this with your Spotify embed URL in the HTML — search for id=spotify-placeholder')">
-        <div class="sp-icon">🎧</div>
-        <strong>Open in Spotify</strong>
-        <span>Replace with your playlist embed link</span>
+    <div class="letter-card">
+      <div class="letter-top-rule">
+        <span class="letter-seal">✦</span>
+        <div class="letter-meta">
+          <span class="letter-from">Found in the archive</span>
+          <span class="letter-date">On the day you were too hard on yourself</span>
+        </div>
       </div>
+      <p class="letter-salutation">Dear Dada,</p>
+      <p class="letter-body">You deserve the same kindness you give everyone else. You are allowed to be gentle with yourself too. Please remember that.</p>
+      <p class="letter-closing">— Someone who cares</p>
+    </div>
+
+    <div class="letter-card">
+      <div class="letter-top-rule">
+        <span class="letter-seal">🌸</span>
+        <div class="letter-meta">
+          <span class="letter-from">Found in the archive</span>
+          <span class="letter-date">On a random Tuesday</span>
+        </div>
+      </div>
+      <p class="letter-salutation">Dear Dada,</p>
+      <p class="letter-body">I hope you know how remarkable you are on ordinary days. Not just when you're glowing — but on quiet, unremarkable Tuesdays when nobody's looking.</p>
+      <p class="letter-closing">— Someone paying attention</p>
+    </div>
+
+    <div class="letter-card">
+      <div class="letter-top-rule">
+        <span class="letter-seal">🌙</span>
+        <div class="letter-meta">
+          <span class="letter-from">Found in the archive</span>
+          <span class="letter-date">For whenever you need it</span>
+        </div>
+      </div>
+      <p class="letter-salutation">Dear Dada,</p>
+      <p class="letter-body">You are not too much. Not too soft, too emotional, or too romantic. You are exactly enough — and the right people will always be glad they found you.</p>
+      <p class="letter-closing">— Someone who is glad</p>
     </div>
   </div>
 </section>
@@ -1883,7 +1744,7 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-document.querySelectorAll('.animate-on-scroll, .artwork-frame, .special-card, .song-card, .portrait-frame').forEach(el => {
+document.querySelectorAll('.animate-on-scroll, .artwork-frame, .special-card, .portrait-frame').forEach(el => {
   observer.observe(el);
 });
 
@@ -1979,65 +1840,18 @@ document.getElementById('chat-modal').addEventListener('click', function(e) {
   if (e.target === this) closeChat();
 });
 
-/* ===================== VINYL PLAYER ===================== */
-let vinylPlaying = false;
-let currentSongEl = null;
-let vinylTapCount = 0;
-let vinylTapTimer = null;
-
-function togglePlay() {
-  vinylPlaying = !vinylPlaying;
-  const record = document.getElementById('vinyl-record');
-  const needle = document.getElementById('vinyl-needle');
-  const btn = document.getElementById('play-pause-btn');
-  record.classList.toggle('playing', vinylPlaying);
-  needle.classList.toggle('playing', vinylPlaying);
-  btn.textContent = vinylPlaying ? '⏸' : '▶';
-  if (vinylPlaying) spawnMusicNotes();
-}
-
-function selectSong(el, name) {
-  document.querySelectorAll('.song-card').forEach(c => c.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('current-song-name').textContent = name;
-  document.getElementById('vinyl-label').textContent = name;
-  if (!vinylPlaying) togglePlay();
-  spawnMusicNotes();
-}
-
-// Vinyl tap easter egg
-document.getElementById('vinyl-record').addEventListener('click', function() {
-  vinylTapCount++;
-  clearTimeout(vinylTapTimer);
-  vinylTapTimer = setTimeout(() => { vinylTapCount = 0; }, 2000);
-  if (vinylTapCount >= 5) {
-    vinylTapCount = 0;
-    document.getElementById('vinyl-secret').classList.add('show');
-    document.getElementById('vinyl-tap-hint').style.display = 'none';
-    spawnMicroSparkles(this);
-  }
-});
-
-function spawnMusicNotes() {
-  const notes = ['♩', '♪', '♫', '♬', '𝅘𝅥𝅮'];
-  for (let i = 0; i < 5; i++) {
-    setTimeout(() => {
-      const n = document.createElement('div');
-      n.className = 'music-note-float';
-      const vinyl = document.getElementById('vinyl-record').getBoundingClientRect();
-      n.textContent = notes[Math.floor(Math.random()*notes.length)];
-      n.style.cssText = `left:${vinyl.left + vinyl.width/2 + (Math.random()-0.5)*80}px;top:${vinyl.top+vinyl.height/2}px;color:${['#c5b8e8','#f2c4ce','#f0d890','#8fb4d4'][Math.floor(Math.random()*4)]};animation-duration:${2+Math.random()*2}s;`;
-      document.body.appendChild(n);
-      setTimeout(() => n.remove(), 4000);
-    }, i * 150);
-  }
-}
-
-// Volume slider visual feedback
-document.getElementById('volume-slider').addEventListener('input', function() {
-  const val = this.value;
-  this.style.background = `linear-gradient(90deg, #c5b8e8 ${val}%, rgba(255,255,255,0.15) ${val}%)`;
-});
+/* ===================== LETTER CARDS OBSERVER ===================== */
+(function initLetters() {
+  const letterObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.letter-card').forEach((card, i) => {
+    card.style.transitionDelay = `${i * 0.1}s`;
+    letterObs.observe(card);
+  });
+})();
 
 /* ===================== PETAL RAIN ===================== */
 function spawnPetals(btn) {
@@ -2190,9 +2004,6 @@ function closeSecret() {
   });
   document.querySelectorAll('.artwork-frame').forEach((card, i) => {
     card.style.transitionDelay = `${i * 0.12}s`;
-  });
-  document.querySelectorAll('.song-card').forEach((card, i) => {
-    card.style.transitionDelay = `${i * 0.1}s`;
   });
   document.querySelectorAll('.portrait-stack .portrait-frame').forEach((card, i) => {
     card.style.transitionDelay = `${i * 0.12}s`;
