@@ -548,6 +548,7 @@ section {
 }
 .special-card {
   border-radius: 24px; overflow: hidden; position: relative; cursor: default;
+  display: flex; flex-direction: column;
   opacity: 0; transform: translateY(40px);
   transition: opacity 0.7s ease, transform 0.7s ease, box-shadow 0.45s ease;
   background: rgba(255,255,255,0.03);
@@ -568,29 +569,27 @@ section {
 .sc-elsa     { --sc-color:rgba(143,180,212,0.55); --sc-glow:rgba(143,180,212,0.22); --sc-bg:rgba(143,180,212,0.10); }
 .sc-moana    { --sc-color:rgba(125,216,196,0.55); --sc-glow:rgba(125,216,196,0.22); --sc-bg:rgba(125,216,196,0.10); }
 .sc-art {
-  width: 100%; height: 195px;
-  display: flex; align-items: center; justify-content: center;
+  width: 100%; height: 240px;
+  flex-shrink: 0;
   position: relative; overflow: hidden;
-  background: radial-gradient(ellipse at 50% 55%, var(--sc-bg,rgba(255,255,255,0.04)) 0%, transparent 75%);
 }
 .sc-art::after {
-  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 68px;
-  background: linear-gradient(to top, rgba(10,6,24,0.98), transparent);
-  pointer-events: none;
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 80px;
+  background: linear-gradient(to top, rgba(10,6,24,1), transparent);
+  pointer-events: none; z-index: 1;
 }
-.sc-art svg { width: 140px; height: 140px; flex-shrink: 0; }
 .sc-art img {
   width: 100%; height: 100%;
-  object-fit: cover; object-position: center top;
+  object-fit: cover; object-position: center center;
   display: block;
-  filter: brightness(0.88) saturate(0.9);
+  filter: brightness(0.85) saturate(0.92);
   transition: filter 0.5s ease, transform 0.6s ease;
 }
 .special-card.visible:hover .sc-art img {
-  filter: brightness(1) saturate(1.05);
-  transform: scale(1.04);
+  filter: brightness(1) saturate(1.08);
+  transform: scale(1.05);
 }
-.sc-body { padding: 20px 26px 30px; }
+.sc-body { padding: 20px 26px 30px; flex: 1; }
 .special-card-num {
   font-size: 0.57rem; letter-spacing: 0.38em;
   color: var(--sc-color, rgba(212,168,83,0.7));
@@ -608,9 +607,13 @@ section {
   font-size: 1.05rem; color: rgba(255,255,255,0.5);
   line-height: 1.72; font-style: italic;
 }
-@media (max-width: 600px) {
-  .special-grid { grid-template-columns: 1fr; }
-  .sc-art { height: 155px; }
+@media (max-width: 640px) {
+  .special-grid { grid-template-columns: 1fr; gap: 16px; }
+  .sc-art { height: 260px; }
+}
+@media (min-width: 641px) and (max-width: 900px) {
+  .special-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .sc-art { height: 200px; }
 }
 
 /* ===================== MESSAGES ROOM ===================== */
