@@ -811,6 +811,21 @@ section {
   border-color: rgba(242,196,206,0.28);
   font-style: italic;
 }
+.msg-divider {
+  display: flex; align-items: center; gap: 8px;
+  align-self: center; opacity: 0;
+  animation: msgAppear 0.5s ease forwards;
+  margin: 4px 0;
+}
+.msg-divider span:first-child,
+.msg-divider span:last-child {
+  display: block; width: 32px; height: 1px;
+  background: rgba(197,184,232,0.3);
+}
+.msg-divider span:nth-child(2) {
+  font-size: 0.6rem; color: rgba(197,184,232,0.45);
+  line-height: 1;
+}
 .typing-indicator {
   display: flex; gap: 5px; align-items: center;
   padding: 14px 18px;
@@ -2180,14 +2195,14 @@ const _chatRaw = [
   { text: "You're allowed to feel exactly what you're feeling." },
   { text: "Whether it's sadness, or confusion, or just emptiness." },
   { text: "Every single bit of it is valid." },
-  { text: "..." },
+  { divider: true },
   { text: "Getting your heart broken is one of the hardest things in the world." },
   { text: "Not because you weren't enough." },
   { text: "But because you loved — fully, openly, without holding back." },
   { text: "That kind of love takes real courage." },
   { text: "It means you're the kind of person who shows up completely." },
   { text: "That is rare. That is beautiful." },
-  { text: "..." },
+  { divider: true },
   { text: "Don't let this moment make you believe otherwise." },
   { text: "You are so much more than this one chapter." },
   { text: "You are someone who still believes in flowers and slow walks and beautiful things." },
@@ -2196,14 +2211,14 @@ const _chatRaw = [
   { text: "Protect it. Don't let anyone make you feel like it's too much." },
   { text: "It is not too much." },
   { text: "It is exactly right. 🌸", warm: true },
-  { text: "..." },
+  { divider: true },
   { text: "One day — not today, maybe not soon —" },
   { text: "Someone will come along who knows exactly how to love you." },
   { text: "They will bring you flowers just to see your face when you get them." },
   { text: "They will walk slowly beside you through galleries and quiet streets." },
   { text: "They'll play your favourite songs and stay just to watch you sing." },
   { text: "They will be so, so lucky. 🌷", warm: true },
-  { text: "..." },
+  { divider: true },
   { text: "But until then — please be gentle with yourself." },
   { text: "You deserve the same softness you give to everyone else." },
   { text: "You deserve to heal slowly, at your own pace." },
@@ -2211,7 +2226,7 @@ const _chatRaw = [
   { text: "You deserve warmth." },
   { text: "You deserve to wake up one morning and simply feel okay again." },
   { text: "And I believe — truly — that day is coming." },
-  { text: "..." },
+  { divider: true },
   { text: "I made this little museum for you." },
   { text: "So that even on your cloudiest days," },
   { text: "You'd have somewhere warm and quiet to come." },
@@ -2225,13 +2240,13 @@ const _chatRaw = [
 let _chatT = 900;
 const chatMessages = _chatRaw.map(m => {
   const delay = _chatT;
-  if (m.text === "...") {
-    _chatT += 2200;
+  if (m.divider) {
+    _chatT += 2000;
+    return { divider: true, delay };
   } else {
-    // ~40ms per character + 500ms buffer, minimum 1500ms
     _chatT += Math.max(1500, m.text.length * 40) + 500;
+    return { text: m.text, delay, special: m.warm || false };
   }
-  return { text: m.text, delay, special: m.warm || false };
 });
 
 let chatStarted = false;
@@ -2262,15 +2277,23 @@ function startChat() {
       const existing = container.querySelector('.typing-indicator');
       if (existing) existing.remove();
 
-      // Show message
-      const bubble = document.createElement('div');
-      bubble.className = 'msg-bubble' + (msg.special ? ' warm' : '');
-      bubble.textContent = msg.text;
-      container.appendChild(bubble);
+      // Show message or divider
+      if (msg.divider) {
+        const div = document.createElement('div');
+        div.className = 'msg-divider';
+        div.innerHTML = '<span></span><span>✦</span><span></span>';
+        container.appendChild(div);
+      } else {
+        const bubble = document.createElement('div');
+        bubble.className = 'msg-bubble' + (msg.special ? ' warm' : '');
+        bubble.textContent = msg.text;
+        container.appendChild(bubble);
+      }
       container.scrollTop = container.scrollHeight;
 
-      // Show typing for next message
-      if (i < chatMessages.length - 1) {
+      // Show typing for next message (skip if next is divider)
+      const nextMsg = chatMessages[i + 1];
+      if (nextMsg && !nextMsg.divider) {
         setTimeout(() => {
           const typing = document.createElement('div');
           typing.className = 'typing-indicator';
