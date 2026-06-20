@@ -1261,15 +1261,12 @@ section {
   padding: 100px 24px 120px;
   text-align: center;
 }
-.portrait-featured-wrap {
-  max-width: 320px;
-  margin: 0 auto 56px;
-}
-.portrait-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 36px;
-  max-width: 720px;
+.portrait-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 64px;
+  max-width: 420px;
   margin: 0 auto;
 }
 .portrait-frame {
@@ -1298,15 +1295,13 @@ section {
 .portrait-img {
   width: 100%;
   display: block;
-  aspect-ratio: 3/4;
+  aspect-ratio: 4/5;
   object-fit: cover;
-  object-position: center top;
+  object-position: center 20%;
   filter: brightness(0.93) saturate(0.88) sepia(0.06);
   transition: filter 0.5s ease;
 }
 .portrait-frame:hover .portrait-img { filter: brightness(1) saturate(1.05) sepia(0); }
-.portrait-featured-wrap .portrait-img { aspect-ratio: 4/5; object-position: center 20%; }
-.portrait-frame.landscape .portrait-img { aspect-ratio: 16/9; object-position: center center; }
 .portrait-caption {
   background: #0e0a06;
   padding: 14px 18px 18px;
@@ -1327,13 +1322,14 @@ section {
   line-height: 1.55;
   font-style: italic;
 }
-@media (min-width: 601px) {
-  .portrait-frame.landscape { grid-column: span 2; }
-}
 @media (max-width: 600px) {
-  .portrait-grid { grid-template-columns: 1fr; gap: 44px; }
-  .portrait-featured-wrap { max-width: 260px; }
+  .portrait-stack { max-width: 300px; gap: 48px; }
 }
+#portrait { text-align: center; padding-bottom: 120px; }
+.portrait-label { color: rgba(255,255,255,0.35); }
+.portrait-heading { color: white; margin-bottom: 8px; }
+.portrait-subheading { color: rgba(255,255,255,0.45); margin-bottom: 64px; }
+.portrait-stack .portrait-frame { width: 100%; }
 
 /* ===================== SCROLL ANIMATIONS ===================== */
 .animate-on-scroll {
@@ -1553,20 +1549,19 @@ section {
 
 <!-- ===================== PORTRAIT ROOM ===================== -->
 <section id="portrait">
-  <p class="section-label animate-on-scroll" style="color:rgba(255,255,255,0.35)">Portrait Room · Room 05</p>
-  <h2 class="section-title animate-on-scroll" style="color:white;margin-bottom:8px">A Portrait of You</h2>
+  <p class="section-label animate-on-scroll portrait-label">Portrait Room · Room 05</p>
+  <h2 class="section-title animate-on-scroll portrait-heading">A Portrait of You</h2>
   <div class="section-divider"></div>
-  <p class="section-desc animate-on-scroll" style="color:rgba(255,255,255,0.45);margin-bottom:64px">"A small collection of beautiful things — all of them you."</p>
+  <p class="section-desc animate-on-scroll portrait-subheading">"A small collection of beautiful things — all of them you."</p>
 
-  <div class="portrait-featured-wrap portrait-frame">
-    <img class="portrait-img" src="dada1.jpg" alt="Portrait of Dada">
-    <div class="portrait-caption">
-      <span class="portrait-exhibit-num">Portrait No. 01 · Featured</span>
-      <p>"She smiles at the edge of the ocean, as if she has always belonged to beautiful things."</p>
+  <div class="portrait-stack">
+    <div class="portrait-frame">
+      <img class="portrait-img" src="dada1.jpg" alt="Portrait of Dada">
+      <div class="portrait-caption">
+        <span class="portrait-exhibit-num">Portrait No. 01</span>
+        <p>"She smiles at the edge of the ocean, as if she has always belonged to beautiful things."</p>
+      </div>
     </div>
-  </div>
-
-  <div class="portrait-grid">
     <div class="portrait-frame">
       <img class="portrait-img" src="dada2.jpg" alt="At the gallery">
       <div class="portrait-caption">
@@ -1586,13 +1581,6 @@ section {
       <div class="portrait-caption">
         <span class="portrait-exhibit-num">Portrait No. 04</span>
         <p>"She still believes in magic. She has always been right to."</p>
-      </div>
-    </div>
-    <div class="portrait-frame landscape">
-      <img class="portrait-img" src="dada5.jpg" alt="Walking through light">
-      <div class="portrait-caption">
-        <span class="portrait-exhibit-num">Portrait No. 05</span>
-        <p>"She walks through light like she belongs in it."</p>
       </div>
     </div>
   </div>
@@ -2206,8 +2194,8 @@ function closeSecret() {
   document.querySelectorAll('.song-card').forEach((card, i) => {
     card.style.transitionDelay = `${i * 0.1}s`;
   });
-  document.querySelectorAll('.portrait-grid .portrait-frame').forEach((card, i) => {
-    card.style.transitionDelay = `${i * 0.15}s`;
+  document.querySelectorAll('.portrait-stack .portrait-frame').forEach((card, i) => {
+    card.style.transitionDelay = `${i * 0.12}s`;
   });
 })();
 </script>
