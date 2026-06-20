@@ -247,9 +247,10 @@ section {
   text-align: center;
 }
 .section-label {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.78rem;
-  letter-spacing: 0.3em;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
   color: var(--text-light);
   text-transform: uppercase;
   margin-bottom: 16px;
@@ -291,6 +292,9 @@ section {
   height: auto;
   margin: 0 auto 48px;
   filter: drop-shadow(0 16px 32px rgba(180,120,140,0.22));
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .bouquet-svg { width: 100%; height: auto; display: block; overflow: visible; }
 .bouquet-svg .fl-c  { transform-origin: 130px 160px; animation: flowerBloom 1.6s cubic-bezier(.22,1,.36,1) 0.8s both; }
@@ -1613,7 +1617,8 @@ section {
   .vinyl-player { padding: 28px 20px; }
 
   /* Entrance Hall */
-  .bouquet-svg { width: 180px; height: auto; }
+  .flower-bouquet { width: min(230px, 70vw); }
+  .bouquet-svg { width: 100%; height: auto; margin: 0 auto; }
   .entrance-title { margin-bottom: 16px; }
 }
 
