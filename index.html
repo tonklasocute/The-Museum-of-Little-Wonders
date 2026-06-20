@@ -450,6 +450,59 @@ section {
   margin-top: 16px;
   font-size: 0.8em;
 }
+.ft-identity { margin-bottom: 36px; }
+.ft-badge {
+  display: inline-block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem; font-style: italic;
+  letter-spacing: 0.16em;
+  color: rgba(242,196,206,0.92);
+  border: 1px solid rgba(242,196,206,0.32);
+  padding: 9px 28px; border-radius: 99px;
+  background: rgba(242,196,206,0.07);
+}
+.ft-dream-section {
+  margin-top: 60px; width: 100%; max-width: 440px;
+}
+.ft-dream-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.78rem; letter-spacing: 0.32em;
+  color: rgba(240,216,144,0.6); text-transform: uppercase;
+  text-align: center; margin-bottom: 38px;
+}
+.ft-steps { display: flex; flex-direction: column; align-items: flex-start; }
+.ft-step { display: flex; align-items: center; gap: 20px; width: 100%; }
+.ft-step-icon {
+  width: 54px; height: 54px; border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.45rem; flex-shrink: 0;
+  box-shadow: 0 0 24px rgba(242,196,206,0.1);
+}
+.ft-step-text { display: flex; flex-direction: column; gap: 4px; }
+.ft-step-text strong {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem; color: rgba(255,255,255,0.88); font-weight: 600;
+}
+.ft-step-text span {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.88rem; color: rgba(255,255,255,0.4); font-style: italic;
+}
+.ft-step-line {
+  width: 1px; height: 38px;
+  background: linear-gradient(180deg, rgba(242,196,206,0.28), rgba(197,184,232,0.18));
+  margin-left: 26px;
+}
+.ft-note {
+  margin-top: 68px;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1rem, 2.8vw, 1.35rem);
+  color: rgba(255,255,255,0.7); line-height: 2;
+  max-width: 500px; text-align: center;
+  text-shadow: 0 0 30px rgba(197,184,232,0.22);
+}
+.ft-note em { color: var(--gold-light); font-style: normal; }
 .castle-silhouette {
   width: min(500px, 85vw);
   margin: 60px auto 0;
@@ -1582,9 +1635,53 @@ section {
   <div class="cloud" style="width:220px;height:35px;top:55%;left:-90px;animation-duration:40s;animation-delay:15s;"></div>
 
   <p class="section-label animate-on-scroll" style="color:rgba(255,255,255,0.4)">Fairy Tale Corner · Room 03</p>
+
+  <div class="ft-identity animate-on-scroll">
+    <span class="ft-badge">♡ Hopeless Romantic Girl</span>
+  </div>
+
   <div class="fairytale-text animate-on-scroll">
     "Some people stop believing in magic.<br><br>
-    <em>I hope you never do."</em>
+    <em>She never did."</em>
+  </div>
+
+  <div class="ft-dream-section animate-on-scroll">
+    <p class="ft-dream-label">✦ Her Dream Date ✦</p>
+    <div class="ft-steps">
+      <div class="ft-step">
+        <div class="ft-step-icon">🌷</div>
+        <div class="ft-step-text">
+          <strong>A Flower Bouquet</strong>
+          <span>Before anything else — always</span>
+        </div>
+      </div>
+      <div class="ft-step-line"></div>
+      <div class="ft-step">
+        <div class="ft-step-icon">🖼️</div>
+        <div class="ft-step-text">
+          <strong>Museum or Art Gallery</strong>
+          <span>Walking slowly, noticing everything</span>
+        </div>
+      </div>
+      <div class="ft-step-line"></div>
+      <div class="ft-step">
+        <div class="ft-step-icon">🎵</div>
+        <div class="ft-step-text">
+          <strong>A Pop Song on the Way Home</strong>
+          <span>Sung slightly off-key, perfectly happy</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ft-note animate-on-scroll">
+    "She's been a little quiet lately.<br>
+    A little sad. A little lost.<br><br>
+    But she still believes in love stories.<br>
+    Still chooses flowers. Still stops<br>
+    at art that moves her.<br><br>
+    Whoever gets to love her next<br>
+    <em>will be the luckiest person alive."</em>
   </div>
 
   <!-- Castle SVG silhouette -->
