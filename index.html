@@ -2052,16 +2052,52 @@ const fineAudio = document.getElementById('fine-audio');
 const musicPlayer = document.getElementById('music-player');
 const nowPlaying = document.getElementById('music-now-playing');
 
-musicPlayer.addEventListener('click', function() {
-  if (fineAudio.paused) {
-    fineAudio.play();
+let _unlockAudio = null;
+
+function setPlaying(on) {
+  if (on) {
     musicPlayer.classList.add('playing');
     nowPlaying.classList.add('visible');
     scheduleMusicNote();
   } else {
-    fineAudio.pause();
     musicPlayer.classList.remove('playing');
     nowPlaying.classList.remove('visible');
+  }
+}
+
+function removeUnlockListeners() {
+  if (_unlockAudio) {
+    document.removeEventListener('click', _unlockAudio);
+    document.removeEventListener('touchstart', _unlockAudio);
+    _unlockAudio = null;
+  }
+}
+
+// Auto-play after loading screen disappears
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    fineAudio.play()
+      .then(() => setPlaying(true))
+      .catch(() => {
+        // Autoplay blocked by browser — play on first user interaction
+        _unlockAudio = () => {
+          fineAudio.play().then(() => setPlaying(true)).catch(() => {});
+          removeUnlockListeners();
+        };
+        document.addEventListener('click', _unlockAudio);
+        document.addEventListener('touchstart', _unlockAudio);
+      });
+  }, 3400);
+});
+
+musicPlayer.addEventListener('click', function(e) {
+  e.stopPropagation(); // prevent triggering unlock listener
+  removeUnlockListeners();
+  if (fineAudio.paused) {
+    fineAudio.play().then(() => setPlaying(true)).catch(() => {});
+  } else {
+    fineAudio.pause();
+    setPlaying(false);
   }
 });
 
