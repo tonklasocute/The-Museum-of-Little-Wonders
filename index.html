@@ -1248,12 +1248,51 @@ section {
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
 .final-closing.visible { opacity: 1; transform: translateY(0); }
+.hidden-hints {
+  margin: 0 auto 44px;
+  max-width: 340px; width: 100%;
+  background: rgba(255,255,255,0.58);
+  border: 1px dashed rgba(197,184,232,0.45);
+  border-radius: 18px;
+  padding: 22px 26px;
+  text-align: left;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.7s ease 0.4s, transform 0.7s ease 0.4s;
+}
+.hidden-hints.visible { opacity: 1; transform: translateY(0); }
+.hidden-hints-label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.58rem; font-weight: 700;
+  letter-spacing: 0.26em; text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 14px;
+}
+.hint-row {
+  display: flex; align-items: center; gap: 11px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(197,184,232,0.13);
+}
+.hint-row:last-child { border-bottom: none; padding-bottom: 2px; }
+.hint-icon { font-size: 1rem; width: 22px; text-align: center; flex-shrink: 0; }
+.hint-count {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.65rem; font-weight: 700;
+  color: var(--deep-pink);
+  background: rgba(212,112,138,0.1);
+  border-radius: 99px;
+  padding: 2px 9px;
+  white-space: nowrap; flex-shrink: 0;
+}
+.hint-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem; color: var(--text-mid);
+  line-height: 1.4;
+}
 .final-secret-hint {
   margin-top: 48px;
   font-size: 0.55rem; letter-spacing: 0.5em;
   color: rgba(197,184,232,0.4);
   cursor: pointer; user-select: none;
-  transition: color 0.3s ease;
   opacity: 0; transform: translateY(10px);
   transition: opacity 0.7s ease 0.5s, transform 0.7s ease 0.5s, color 0.3s ease;
 }
@@ -2498,6 +2537,25 @@ section {
       "Go gently, Dada.<br>
       The world is better with you in it." 🌷
     </p>
+  </div>
+
+  <div class="hidden-hints animate-on-scroll" style="transition-delay:0.35s">
+    <p class="hidden-hints-label">✦ Hidden within this museum</p>
+    <div class="hint-row">
+      <span class="hint-icon">🌷</span>
+      <span class="hint-count">× 5 clicks</span>
+      <span class="hint-desc">Click the flower button — a secret room appears</span>
+    </div>
+    <div class="hint-row">
+      <span class="hint-icon">✦</span>
+      <span class="hint-count">× 3 clicks</span>
+      <span class="hint-desc">Click the museum title on the first page — a curator's secret is revealed</span>
+    </div>
+    <div class="hint-row">
+      <span class="hint-icon">···</span>
+      <span class="hint-count">× 1 click</span>
+      <span class="hint-desc">Tap the ✦ ✦ ✦ below — another way into the secret room</span>
+    </div>
   </div>
 
   <button class="flower-btn" id="flower-btn" onclick="spawnPetals(this)">One More Flower 🌷</button>
