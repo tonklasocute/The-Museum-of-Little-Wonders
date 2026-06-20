@@ -856,22 +856,70 @@ section {
   top: -40px;
 }
 
-/* ===================== EASTER EGG STAR ===================== */
-#easter-star {
+/* ===================== MUSIC PLAYER ===================== */
+#music-player {
   position: fixed;
   bottom: 28px; right: 28px;
-  width: 44px; height: 44px;
-  background: radial-gradient(circle, var(--warm-gold), var(--gold-light));
+  width: 54px; height: 54px;
   border-radius: 50%;
   cursor: pointer;
   z-index: 200;
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.2rem;
-  box-shadow: 0 0 20px rgba(212,168,83,0.6), 0 0 40px rgba(212,168,83,0.3);
-  animation: starPulse 3s ease infinite;
-  transition: transform 0.3s ease;
 }
-#easter-star:hover { transform: scale(1.15); }
+#vinyl-wrap {
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2.5px #b89050, 0 4px 20px rgba(0,0,0,0.55), 0 0 26px rgba(184,144,80,0.2);
+  transition: transform 0.3s ease, box-shadow 0.4s ease;
+}
+#music-player.playing #vinyl-wrap {
+  box-shadow: 0 0 0 2.5px #d4a853, 0 4px 24px rgba(0,0,0,0.5), 0 0 44px rgba(212,168,83,0.42);
+  animation: vinylSpin 5s linear infinite;
+}
+#music-player:not(.playing):hover #vinyl-wrap { transform: scale(1.1); }
+#vinyl-svg { width: 100%; height: 100%; display: block; border-radius: 50%; }
+#vinyl-icon {
+  position: absolute; z-index: 2;
+  font-size: 1rem; color: #1a1208;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  -webkit-user-select: none; user-select: none;
+}
+#music-player.playing #vinyl-icon { opacity: 0; }
+#music-now-playing {
+  position: fixed;
+  bottom: 92px; right: 28px;
+  background: rgba(12,8,4,0.92);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(212,168,83,0.22);
+  border-radius: 20px;
+  padding: 7px 14px 7px 11px;
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.75rem;
+  color: rgba(220,190,120,0.9);
+  letter-spacing: 0.09em;
+  opacity: 0;
+  transform: translateY(6px) scale(0.96);
+  transition: all 0.35s cubic-bezier(0.34,1.2,0.64,1);
+  pointer-events: none;
+  z-index: 200;
+  white-space: nowrap;
+}
+#music-now-playing.visible { opacity: 1; transform: translateY(0) scale(1); }
+.np-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #d4a853;
+  animation: npPulse 1.4s ease infinite;
+  flex-shrink: 0;
+}
+@keyframes npPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.6)} }
+@keyframes musicNoteFloat {
+  0%   { opacity: 0; transform: translateY(0) rotate(-5deg) scale(0.7); }
+  20%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-55px) rotate(15deg) scale(1.1); }
+}
 
 /* Easter egg modal */
 #easter-modal {
@@ -1207,7 +1255,31 @@ section {
 <canvas id="particle-canvas"></canvas>
 
 <!-- ===================== EASTER EGG STAR ===================== -->
-<div id="easter-star" title="Click me...">✦</div>
+<div id="music-player" title="Play ♪">
+  <div id="vinyl-wrap">
+    <svg id="vinyl-svg" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="vl-label" cx="40%" cy="33%" r="70%">
+          <stop offset="0%" stop-color="#e8c870"/>
+          <stop offset="100%" stop-color="#9e6818"/>
+        </radialGradient>
+      </defs>
+      <circle cx="27" cy="27" r="27" fill="#161010"/>
+      <circle cx="27" cy="27" r="24"   fill="none" stroke="rgba(255,255,255,0.055)" stroke-width="2"/>
+      <circle cx="27" cy="27" r="20.5" fill="none" stroke="rgba(255,255,255,0.048)" stroke-width="1.8"/>
+      <circle cx="27" cy="27" r="17"   fill="none" stroke="rgba(255,255,255,0.042)" stroke-width="1.5"/>
+      <circle cx="27" cy="27" r="13.5" fill="none" stroke="rgba(255,255,255,0.036)" stroke-width="1.2"/>
+      <circle cx="27" cy="27" r="10.5" fill="url(#vl-label)"/>
+      <circle cx="27" cy="27" r="2.8"  fill="#161010"/>
+    </svg>
+  </div>
+  <span id="vinyl-icon">♪</span>
+  <audio id="fine-audio" src="fine.mp3" loop></audio>
+</div>
+<div id="music-now-playing">
+  <div class="np-dot"></div>
+  <span>fine</span>
+</div>
 
 <!-- ===================== HERO SECTION ===================== -->
 <section id="hero">
@@ -1975,25 +2047,33 @@ function spawnPetals(btn) {
   setTimeout(() => btn.style.transform = '', 300);
 }
 
-/* ===================== EASTER EGG ===================== */
-let starClickCount = 0;
-let starClickTimer = null;
+/* ===================== MUSIC PLAYER ===================== */
+const fineAudio = document.getElementById('fine-audio');
+const musicPlayer = document.getElementById('music-player');
+const nowPlaying = document.getElementById('music-now-playing');
 
-document.getElementById('easter-star').addEventListener('click', function() {
-  starClickCount++;
-  clearTimeout(starClickTimer);
-  starClickTimer = setTimeout(() => { starClickCount = 0; }, 2500);
-
-  if (starClickCount >= 5) {
-    starClickCount = 0;
-    openSecretRoom();
-    return;
+musicPlayer.addEventListener('click', function() {
+  if (fineAudio.paused) {
+    fineAudio.play();
+    musicPlayer.classList.add('playing');
+    nowPlaying.classList.add('visible');
+    scheduleMusicNote();
+  } else {
+    fineAudio.pause();
+    musicPlayer.classList.remove('playing');
+    nowPlaying.classList.remove('visible');
   }
-
-  const modal = document.getElementById('easter-modal');
-  modal.classList.add('open');
-  spawnMicroSparkles(this);
 });
+
+function scheduleMusicNote() {
+  if (!musicPlayer.classList.contains('playing')) return;
+  const note = document.createElement('span');
+  note.textContent = ['♪','♫','♩'][Math.floor(Math.random() * 3)];
+  note.style.cssText = `position:fixed;bottom:${44+Math.random()*18}px;right:${32+Math.random()*24}px;font-size:${0.7+Math.random()*0.45}rem;color:rgba(212,168,83,${0.5+Math.random()*0.5});pointer-events:none;z-index:199;animation:musicNoteFloat ${1.8+Math.random()*1.2}s ease forwards;`;
+  document.body.appendChild(note);
+  note.addEventListener('animationend', () => note.remove());
+  setTimeout(scheduleMusicNote, 2000 + Math.random() * 2000);
+}
 
 function closeEaster() {
   document.getElementById('easter-modal').classList.remove('open');
