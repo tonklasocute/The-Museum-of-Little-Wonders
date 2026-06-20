@@ -308,99 +308,146 @@ section {
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
-/* ===================== GALLERY ROOM ===================== */
+/* ===================== GALLERY ROOM — DARK ARCHIVE ===================== */
 #gallery {
-  min-height: 100vh;
-  background: linear-gradient(160deg, #f8f5fc 0%, #fdf5f8 100%);
-  padding: 100px 24px;
-}
-.gallery-header { text-align: center; margin-bottom: 64px; }
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 32px;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-.artwork-frame {
-  position: relative;
-  cursor: pointer;
-  border-radius: 4px;
-  background: #f9f4ec;
-  box-shadow:
-    0 0 0 6px #f0e8d8,
-    0 0 0 10px #c8b890,
-    0 0 0 14px #f0e8d8,
-    0 8px 40px rgba(0,0,0,0.2);
-  padding: 28px 24px 56px;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  opacity: 0;
-  transform: translateY(40px);
-}
-.artwork-frame.visible {
-  opacity: 1; transform: translateY(0);
-  transition: opacity 0.7s ease, transform 0.7s ease, box-shadow 0.3s ease;
-}
-.artwork-frame:hover {
-  transform: translateY(-6px) scale(1.01);
-  box-shadow:
-    0 0 0 6px #f0e8d8,
-    0 0 0 10px #c8b890,
-    0 0 0 14px #f0e8d8,
-    0 20px 60px rgba(0,0,0,0.28);
-}
-.artwork-inner {
-  min-height: 180px;
-  background: linear-gradient(135deg, #f5e8f0, #e8e0f8, #e0eff8);
-  border-radius: 2px;
-  display: flex; align-items: center; justify-content: center;
-  padding: 24px;
-  position: relative;
+  background: #07050f;
   overflow: hidden;
 }
-.artwork-symbol {
-  font-size: 3rem;
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0.15;
-  transition: opacity 0.4s ease;
+.gallery-header {
+  text-align: center;
+  padding: 100px 24px 80px;
+  position: relative;
 }
-.artwork-reveal {
+.archive-dust {
+  position: absolute; inset: 0; pointer-events: none;
+}
+.archive-panel {
+  position: relative;
+  width: 100%;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 40px;
+  overflow: hidden;
+  border-top: 1px solid rgba(255,255,255,0.03);
+  cursor: default;
+}
+.archive-panel::before {
+  content: '';
   position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(197,184,232,0.95), rgba(242,196,206,0.95));
-  display: flex; align-items: center; justify-content: center;
-  padding: 24px;
   opacity: 0;
-  transition: opacity 0.5s ease;
-  border-radius: 2px;
+  transition: opacity 1.6s ease;
+  pointer-events: none;
 }
-.artwork-frame.flipped .artwork-reveal { opacity: 1; }
-.artwork-frame.flipped .artwork-symbol { opacity: 0; }
-.artwork-reveal p {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem;
-  color: var(--text-dark);
-  text-align: center;
-  line-height: 1.6;
-  font-style: italic;
+.archive-panel:nth-child(odd)::before {
+  background: radial-gradient(ellipse at 50% 55%, rgba(197,184,232,0.09) 0%, transparent 65%);
 }
-.artwork-label {
+.archive-panel:nth-child(even)::before {
+  background: radial-gradient(ellipse at 50% 55%, rgba(242,196,206,0.08) 0%, transparent 65%);
+}
+.archive-panel.illuminated::before { opacity: 1; }
+
+.archive-bg-num {
   position: absolute;
-  bottom: 16px; left: 0; right: 0;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(120px, 25vw, 220px);
+  font-weight: 700;
+  color: rgba(255,255,255,0.018);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  transition: color 2s ease;
+}
+.archive-panel.illuminated .archive-bg-num {
+  color: rgba(255,255,255,0.03);
+}
+
+.archive-content {
+  position: relative;
   text-align: center;
-  font-size: 0.72rem;
-  letter-spacing: 0.2em;
-  color: var(--text-light);
+  max-width: 780px;
+  z-index: 2;
+}
+.archive-num {
+  display: block;
+  font-size: 0.62rem;
+  letter-spacing: 0.38em;
+  color: rgba(212,168,83,0);
   text-transform: uppercase;
+  margin-bottom: 32px;
+  transition: color 1s ease 0.4s;
 }
-.tap-hint {
-  text-align: center;
-  font-size: 0.8rem;
-  color: var(--text-light);
-  letter-spacing: 0.12em;
-  margin-top: 32px;
+.archive-panel.illuminated .archive-num { color: rgba(212,168,83,0.65); }
+
+.archive-quote {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.7rem, 4.5vw, 3.6rem);
+  color: rgba(255,255,255,0);
+  line-height: 1.35;
+  font-weight: 400;
   font-style: italic;
+  text-shadow: none;
+  transition: color 1.6s ease 0.15s, text-shadow 1.6s ease 0.15s;
+  word-spacing: 0.05em;
 }
+.archive-panel:nth-child(odd).illuminated .archive-quote {
+  color: rgba(255,255,255,0.93);
+  text-shadow: 0 0 80px rgba(197,184,232,0.28), 0 0 160px rgba(197,184,232,0.1);
+}
+.archive-panel:nth-child(even).illuminated .archive-quote {
+  color: rgba(255,255,255,0.93);
+  text-shadow: 0 0 80px rgba(242,196,206,0.28), 0 0 160px rgba(242,196,206,0.1);
+}
+
+.archive-rule {
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,168,83,0.5), transparent);
+  margin: 36px auto 0;
+  transition: width 1s ease 0.9s;
+}
+.archive-panel.illuminated .archive-rule { width: min(280px, 60vw); }
+
+.archive-sidebar {
+  position: absolute;
+  left: max(24px, 4vw);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.8s ease 1.2s;
+}
+.archive-panel.illuminated .archive-sidebar { opacity: 1; }
+.archive-sidebar-line {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(180deg, transparent, rgba(212,168,83,0.4), transparent);
+}
+.archive-sidebar-label {
+  font-size: 0.55rem;
+  letter-spacing: 0.3em;
+  color: rgba(212,168,83,0.5);
+  writing-mode: vertical-rl;
+  text-transform: uppercase;
+  margin: 4px 0;
+}
+
+@media (max-width: 600px) {
+  .archive-panel { min-height: 60vh; padding: 60px 28px; }
+  .archive-sidebar { display: none; }
+  .archive-quote { font-size: clamp(1.5rem, 6vw, 2.2rem); }
+}
+#gallery .gallery-header .section-label { color: rgba(255,255,255,0.3); }
+#gallery .gallery-header .section-title { color: white; }
+#gallery .gallery-header .section-desc { color: rgba(255,255,255,0.4); font-style: italic; }
 
 /* ===================== FAIRY TALE CORNER ===================== */
 #fairytale {
@@ -1342,43 +1389,69 @@ section {
   <button class="continue-btn animate-on-scroll" onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">Continue →</button>
 </section>
 
-<!-- ===================== GALLERY ROOM ===================== -->
+<!-- ===================== GALLERY ROOM — DARK ARCHIVE ===================== -->
 <section id="gallery">
   <div class="gallery-header">
+    <div class="archive-dust" id="archive-dust"></div>
     <p class="section-label animate-on-scroll">Gallery Room · Room 02</p>
     <h2 class="section-title animate-on-scroll">Things You've Survived</h2>
     <div class="section-divider"></div>
-    <p class="section-desc animate-on-scroll">A collection of quiet victories.</p>
-    <p class="tap-hint animate-on-scroll">Tap each frame to reveal its message.</p>
+    <p class="section-desc animate-on-scroll">"A collection of quiet victories."</p>
   </div>
-  <div class="gallery-grid">
-    <div class="artwork-frame" onclick="flipArtwork(this)">
-      <div class="artwork-inner">
-        <span class="artwork-symbol">🌧️</span>
-        <div class="artwork-reveal"><p>"You survived days you thought would break you."</p></div>
-      </div>
-      <div class="artwork-label">Exhibit No. 01 · Resilience</div>
+
+  <div class="archive-panel">
+    <div class="archive-bg-num">01</div>
+    <div class="archive-sidebar">
+      <div class="archive-sidebar-line"></div>
+      <span class="archive-sidebar-label">Resilience</span>
+      <div class="archive-sidebar-line"></div>
     </div>
-    <div class="artwork-frame" onclick="flipArtwork(this)">
-      <div class="artwork-inner">
-        <span class="artwork-symbol">🌿</span>
-        <div class="artwork-reveal"><p>"You're stronger than you think."</p></div>
-      </div>
-      <div class="artwork-label">Exhibit No. 02 · Strength</div>
+    <div class="archive-content">
+      <span class="archive-num">Exhibit No. 01 · Resilience</span>
+      <p class="archive-quote">"You survived days you thought would break you."</p>
+      <div class="archive-rule"></div>
     </div>
-    <div class="artwork-frame" onclick="flipArtwork(this)">
-      <div class="artwork-inner">
-        <span class="artwork-symbol">📖</span>
-        <div class="artwork-reveal"><p>"Bad days are chapters, not the whole story."</p></div>
-      </div>
-      <div class="artwork-label">Exhibit No. 03 · Perspective</div>
+  </div>
+
+  <div class="archive-panel">
+    <div class="archive-bg-num">02</div>
+    <div class="archive-sidebar">
+      <div class="archive-sidebar-line"></div>
+      <span class="archive-sidebar-label">Strength</span>
+      <div class="archive-sidebar-line"></div>
     </div>
-    <div class="artwork-frame" onclick="flipArtwork(this)">
-      <div class="artwork-inner">
-        <span class="artwork-symbol">🌅</span>
-        <div class="artwork-reveal"><p>"You've made it through every difficult day so far."</p></div>
-      </div>
-      <div class="artwork-label">Exhibit No. 04 · Continuance</div>
+    <div class="archive-content">
+      <span class="archive-num">Exhibit No. 02 · Strength</span>
+      <p class="archive-quote">"You're stronger than you think."</p>
+      <div class="archive-rule"></div>
+    </div>
+  </div>
+
+  <div class="archive-panel">
+    <div class="archive-bg-num">03</div>
+    <div class="archive-sidebar">
+      <div class="archive-sidebar-line"></div>
+      <span class="archive-sidebar-label">Perspective</span>
+      <div class="archive-sidebar-line"></div>
+    </div>
+    <div class="archive-content">
+      <span class="archive-num">Exhibit No. 03 · Perspective</span>
+      <p class="archive-quote">"Bad days are chapters,<br>not the whole story."</p>
+      <div class="archive-rule"></div>
+    </div>
+  </div>
+
+  <div class="archive-panel">
+    <div class="archive-bg-num">04</div>
+    <div class="archive-sidebar">
+      <div class="archive-sidebar-line"></div>
+      <span class="archive-sidebar-label">Continuance</span>
+      <div class="archive-sidebar-line"></div>
+    </div>
+    <div class="archive-content">
+      <span class="archive-num">Exhibit No. 04 · Continuance</span>
+      <p class="archive-quote">"You've made it through every difficult day so far."</p>
+      <div class="archive-rule"></div>
     </div>
   </div>
 </section>
@@ -2097,6 +2170,29 @@ function closeSecret() {
     requestAnimationFrame(animate);
   }
   animate();
+})();
+
+/* ===================== ARCHIVE PANELS ===================== */
+(function initArchive() {
+  const panels = document.querySelectorAll('.archive-panel');
+  const archiveObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('illuminated');
+    });
+  }, { threshold: 0.25 });
+  panels.forEach(p => archiveObs.observe(p));
+
+  // Floating dust in gallery header
+  const dust = document.getElementById('archive-dust');
+  if (dust) {
+    setInterval(() => {
+      const d = document.createElement('div');
+      const size = 1 + Math.random() * 2;
+      d.style.cssText = `position:absolute;width:${size}px;height:${size}px;border-radius:50%;background:rgba(255,255,255,${0.05+Math.random()*0.1});left:${Math.random()*100}%;top:${Math.random()*100}%;pointer-events:none;animation:floatSparkle ${4+Math.random()*4}s ease forwards;`;
+      dust.appendChild(d);
+      setTimeout(() => d.remove(), 8000);
+    }, 300);
+  }
 })();
 
 /* ===================== SCROLL STAGGER ===================== */
