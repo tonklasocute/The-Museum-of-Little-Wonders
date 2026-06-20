@@ -295,146 +295,141 @@ section {
 .bouquet-svg .bb    { animation: flowerBloom 1.0s ease 1.3s both; transform-origin: 130px 195px; }
 .bouquet-svg .wrap  { animation: flowerBloom 0.6s ease 0.1s both; transform-origin: 130px 310px; }
 
-/* ===================== GALLERY ROOM — DARK ARCHIVE ===================== */
+/* ===================== GALLERY ROOM — ARTIFACT CASES ===================== */
 #gallery {
   background: #07050f;
   overflow: hidden;
 }
 .gallery-header {
   text-align: center;
-  padding: 100px 24px 80px;
+  padding: 100px 24px 72px;
   position: relative;
 }
 .archive-dust {
   position: absolute; inset: 0; pointer-events: none;
 }
-.archive-panel {
-  position: relative;
-  width: 100%;
-  min-height: 80vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 80px 40px;
-  overflow: hidden;
-  border-top: 1px solid rgba(255,255,255,0.03);
-  cursor: default;
-}
-.archive-panel::before {
-  content: '';
-  position: absolute; inset: 0;
-  opacity: 0;
-  transition: opacity 1.6s ease;
-  pointer-events: none;
-}
-.archive-panel:nth-child(odd)::before {
-  background: radial-gradient(ellipse at 50% 55%, rgba(197,184,232,0.09) 0%, transparent 65%);
-}
-.archive-panel:nth-child(even)::before {
-  background: radial-gradient(ellipse at 50% 55%, rgba(242,196,206,0.08) 0%, transparent 65%);
-}
-.archive-panel.illuminated::before { opacity: 1; }
-
-.archive-bg-num {
-  position: absolute;
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(120px, 25vw, 220px);
-  font-weight: 700;
-  color: rgba(255,255,255,0.018);
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  -webkit-user-select: none;
-  user-select: none;
-  line-height: 1;
-  letter-spacing: -0.05em;
-  transition: color 2s ease;
-}
-.archive-panel.illuminated .archive-bg-num {
-  color: rgba(255,255,255,0.03);
-}
-
-.archive-content {
-  position: relative;
-  text-align: center;
-  max-width: 780px;
-  z-index: 2;
-}
-.archive-num {
-  display: block;
-  font-size: 0.62rem;
-  letter-spacing: 0.38em;
-  color: rgba(212,168,83,0);
-  text-transform: uppercase;
-  margin-bottom: 32px;
-  transition: color 1s ease 0.4s;
-}
-.archive-panel.illuminated .archive-num { color: rgba(212,168,83,0.65); }
-
-.archive-quote {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.7rem, 4.5vw, 3.6rem);
-  color: rgba(255,255,255,0);
-  line-height: 1.35;
-  font-weight: 400;
-  font-style: italic;
-  text-shadow: none;
-  transition: color 1.6s ease 0.15s, text-shadow 1.6s ease 0.15s;
-  word-spacing: 0.05em;
-}
-.archive-panel:nth-child(odd).illuminated .archive-quote {
-  color: rgba(255,255,255,0.93);
-  text-shadow: 0 0 80px rgba(197,184,232,0.28), 0 0 160px rgba(197,184,232,0.1);
-}
-.archive-panel:nth-child(even).illuminated .archive-quote {
-  color: rgba(255,255,255,0.93);
-  text-shadow: 0 0 80px rgba(242,196,206,0.28), 0 0 160px rgba(242,196,206,0.1);
-}
-
-.archive-rule {
-  width: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(212,168,83,0.5), transparent);
-  margin: 36px auto 0;
-  transition: width 1s ease 0.9s;
-}
-.archive-panel.illuminated .archive-rule { width: min(280px, 60vw); }
-
-.archive-sidebar {
-  position: absolute;
-  left: max(24px, 4vw);
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  opacity: 0;
-  transition: opacity 0.8s ease 1.2s;
-}
-.archive-panel.illuminated .archive-sidebar { opacity: 1; }
-.archive-sidebar-line {
-  width: 1px;
-  height: 60px;
-  background: linear-gradient(180deg, transparent, rgba(212,168,83,0.4), transparent);
-}
-.archive-sidebar-label {
-  font-size: 0.55rem;
-  letter-spacing: 0.3em;
-  color: rgba(212,168,83,0.5);
-  writing-mode: vertical-rl;
-  text-transform: uppercase;
-  margin: 4px 0;
-}
-
-@media (max-width: 600px) {
-  .archive-panel { min-height: 60vh; padding: 60px 28px; }
-  .archive-sidebar { display: none; }
-  .archive-quote { font-size: clamp(1.5rem, 6vw, 2.2rem); }
-}
 #gallery .gallery-header .section-label { color: rgba(255,255,255,0.3); }
 #gallery .gallery-header .section-title { color: white; }
 #gallery .gallery-header .section-desc { color: rgba(255,255,255,0.4); font-style: italic; }
+
+/* Grid of artifact display cases */
+.artifact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 24px 110px;
+}
+.artifact-card {
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.07);
+  background: rgba(255,255,255,0.018);
+  overflow: hidden;
+  cursor: default;
+  opacity: 0; transform: translateY(36px);
+  transition: opacity 0.7s ease, transform 0.7s ease,
+              border-color 0.4s ease, box-shadow 0.4s ease;
+}
+.artifact-card.visible { opacity: 1; transform: translateY(0); }
+.artifact-card:hover {
+  border-color: var(--ac-border, rgba(255,255,255,0.14));
+  box-shadow: 0 24px 70px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.05);
+  transform: translateY(-8px) !important;
+}
+
+/* Glass case (top icon area) */
+.artifact-case {
+  height: 150px;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  overflow: hidden;
+}
+.artifact-case::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 100%, var(--ac-glow, rgba(255,255,255,0.04)) 0%, transparent 68%);
+  transition: opacity 0.5s ease;
+}
+.artifact-case::after {
+  content: ''; position: absolute;
+  bottom: 0; left: 10%; right: 10%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ac-border, rgba(255,255,255,0.08)), transparent);
+}
+.artifact-card:hover .artifact-case::before { opacity: 2.5; }
+
+.artifact-glyph {
+  font-size: 2.8rem; line-height: 1;
+  color: var(--ac-color, rgba(255,255,255,0.2));
+  position: relative; z-index: 1;
+  user-select: none; font-style: normal;
+  transition: transform 0.55s cubic-bezier(0.34,1.4,0.64,1), color 0.4s ease,
+              filter 0.4s ease;
+}
+.artifact-card:hover .artifact-glyph {
+  transform: scale(1.22) translateY(-6px);
+  color: var(--ac-color-hi, rgba(255,255,255,0.6));
+  filter: drop-shadow(0 0 18px var(--ac-glow-hi, rgba(255,255,255,0.3)));
+}
+
+/* Info label (bottom) */
+.artifact-info { padding: 18px 20px 22px; }
+.artifact-num {
+  display: block; font-family: 'Lato', sans-serif; font-weight: 700;
+  font-size: 0.54rem; letter-spacing: 0.32em; text-transform: uppercase;
+  color: rgba(212,168,83,0.48); margin-bottom: 9px;
+}
+.artifact-hr {
+  border: none; height: 1px;
+  background: rgba(255,255,255,0.05); margin-bottom: 12px;
+}
+.artifact-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem; font-weight: 700;
+  color: white; line-height: 1.3; margin-bottom: 11px;
+}
+.artifact-detail {
+  display: flex; flex-direction: column; gap: 4px; margin-bottom: 11px;
+}
+.artifact-detail-row {
+  font-size: 0.71rem; font-family: 'Lato', sans-serif;
+  color: rgba(255,255,255,0.3); line-height: 1.45;
+}
+.artifact-detail-row b {
+  font-weight: 700; text-transform: uppercase;
+  font-size: 0.56rem; letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.18); margin-right: 6px;
+}
+.artifact-condition {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: 'Lato', sans-serif; font-size: 0.64rem;
+  font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em;
+  color: var(--ac-label, rgba(255,255,255,0.4));
+  margin-bottom: 12px;
+}
+.artifact-condition::before {
+  content: ''; display: block; width: 5px; height: 5px;
+  border-radius: 50%; background: currentColor;
+}
+.artifact-note {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 0.86rem; line-height: 1.68;
+  color: rgba(255,255,255,0.36); margin: 0;
+  border-left: 2px solid rgba(255,255,255,0.07);
+  padding-left: 12px;
+}
+
+/* Per-artifact color themes */
+.ac-rose   { --ac-border:rgba(232,160,180,0.2);  --ac-glow:rgba(232,160,180,0.07);  --ac-glow-hi:rgba(232,160,180,0.35); --ac-color:rgba(232,160,180,0.32); --ac-color-hi:rgba(232,160,180,0.72); --ac-label:rgba(232,160,180,0.65); }
+.ac-purple { --ac-border:rgba(197,184,232,0.2);  --ac-glow:rgba(197,184,232,0.07);  --ac-glow-hi:rgba(197,184,232,0.35); --ac-color:rgba(197,184,232,0.32); --ac-color-hi:rgba(197,184,232,0.72); --ac-label:rgba(197,184,232,0.65); }
+.ac-gold   { --ac-border:rgba(212,168,83,0.2);   --ac-glow:rgba(212,168,83,0.07);   --ac-glow-hi:rgba(212,168,83,0.35);  --ac-color:rgba(212,168,83,0.32);  --ac-color-hi:rgba(212,168,83,0.72);  --ac-label:rgba(212,168,83,0.65); }
+.ac-teal   { --ac-border:rgba(100,220,190,0.2);  --ac-glow:rgba(100,220,190,0.07);  --ac-glow-hi:rgba(100,220,190,0.35); --ac-color:rgba(100,220,190,0.32); --ac-color-hi:rgba(100,220,190,0.72); --ac-label:rgba(100,220,190,0.65); }
+.ac-blue   { --ac-border:rgba(143,196,228,0.2);  --ac-glow:rgba(143,196,228,0.07);  --ac-glow-hi:rgba(143,196,228,0.35); --ac-color:rgba(143,196,228,0.32); --ac-color-hi:rgba(143,196,228,0.72); --ac-label:rgba(143,196,228,0.65); }
+.ac-cream  { --ac-border:rgba(240,216,144,0.2);  --ac-glow:rgba(240,216,144,0.07);  --ac-glow-hi:rgba(240,216,144,0.35); --ac-color:rgba(240,216,144,0.32); --ac-color-hi:rgba(240,216,144,0.72); --ac-label:rgba(240,216,144,0.65); }
+
+@media (max-width: 600px) {
+  .artifact-grid { grid-template-columns: 1fr; gap: 14px; padding: 0 16px 80px; }
+}
 
 /* ===================== FAIRY TALE CORNER ===================== */
 #fairytale {
@@ -1630,60 +1625,98 @@ section {
     <p class="section-desc animate-on-scroll">"A collection of quiet victories."</p>
   </div>
 
-  <div class="archive-panel">
-    <div class="archive-bg-num">01</div>
-    <div class="archive-sidebar">
-      <div class="archive-sidebar-line"></div>
-      <span class="archive-sidebar-label">Resilience</span>
-      <div class="archive-sidebar-line"></div>
-    </div>
-    <div class="archive-content">
-      <span class="archive-num">Exhibit No. 01 · Resilience</span>
-      <p class="archive-quote">"You survived days you thought would break you."</p>
-      <div class="archive-rule"></div>
-    </div>
-  </div>
+  <div class="artifact-grid">
 
-  <div class="archive-panel">
-    <div class="archive-bg-num">02</div>
-    <div class="archive-sidebar">
-      <div class="archive-sidebar-line"></div>
-      <span class="archive-sidebar-label">Strength</span>
-      <div class="archive-sidebar-line"></div>
+    <div class="artifact-card ac-rose animate-on-scroll">
+      <div class="artifact-case"><span class="artifact-glyph">♡</span></div>
+      <div class="artifact-info">
+        <span class="artifact-num">Exhibit No. 01</span>
+        <hr class="artifact-hr">
+        <p class="artifact-name">A Heart, Post-Storm</p>
+        <div class="artifact-detail">
+          <div class="artifact-detail-row"><b>Medium</b>Tears, Time, and Sleepless Nights</div>
+          <div class="artifact-detail-row"><b>Year</b>When it hurt most</div>
+        </div>
+        <span class="artifact-condition">Restored</span>
+        <p class="artifact-note">"The hardest nights eventually end. And when they do, you are still here."</p>
+      </div>
     </div>
-    <div class="archive-content">
-      <span class="archive-num">Exhibit No. 02 · Strength</span>
-      <p class="archive-quote">"You're stronger than you think."</p>
-      <div class="archive-rule"></div>
-    </div>
-  </div>
 
-  <div class="archive-panel">
-    <div class="archive-bg-num">03</div>
-    <div class="archive-sidebar">
-      <div class="archive-sidebar-line"></div>
-      <span class="archive-sidebar-label">Perspective</span>
-      <div class="archive-sidebar-line"></div>
+    <div class="artifact-card ac-purple animate-on-scroll">
+      <div class="artifact-case"><span class="artifact-glyph">◑</span></div>
+      <div class="artifact-info">
+        <span class="artifact-num">Exhibit No. 02</span>
+        <hr class="artifact-hr">
+        <p class="artifact-name">The Weight of a Bad Day</p>
+        <div class="artifact-detail">
+          <div class="artifact-detail-row"><b>Medium</b>Uncertainty, Doubt, and One Quiet Breath</div>
+          <div class="artifact-detail-row"><b>Year</b>Days that felt too heavy</div>
+        </div>
+        <span class="artifact-condition">Survived</span>
+        <p class="artifact-note">"You carried it — and put it down when you were ready."</p>
+      </div>
     </div>
-    <div class="archive-content">
-      <span class="archive-num">Exhibit No. 03 · Perspective</span>
-      <p class="archive-quote">"Bad days are chapters,<br>not the whole story."</p>
-      <div class="archive-rule"></div>
-    </div>
-  </div>
 
-  <div class="archive-panel">
-    <div class="archive-bg-num">04</div>
-    <div class="archive-sidebar">
-      <div class="archive-sidebar-line"></div>
-      <span class="archive-sidebar-label">Continuance</span>
-      <div class="archive-sidebar-line"></div>
+    <div class="artifact-card ac-gold animate-on-scroll">
+      <div class="artifact-case"><span class="artifact-glyph">✦</span></div>
+      <div class="artifact-info">
+        <span class="artifact-num">Exhibit No. 03</span>
+        <hr class="artifact-hr">
+        <p class="artifact-name">Something Left Unsaid</p>
+        <div class="artifact-detail">
+          <div class="artifact-detail-row"><b>Medium</b>Words, Silence, and the Space Between</div>
+          <div class="artifact-detail-row"><b>Year</b>When silence felt louder</div>
+        </div>
+        <span class="artifact-condition">Released</span>
+        <p class="artifact-note">"Not everything needs a resolution to heal."</p>
+      </div>
     </div>
-    <div class="archive-content">
-      <span class="archive-num">Exhibit No. 04 · Continuance</span>
-      <p class="archive-quote">"You've made it through every difficult day so far."</p>
-      <div class="archive-rule"></div>
+
+    <div class="artifact-card ac-teal animate-on-scroll">
+      <div class="artifact-case"><span class="artifact-glyph">△</span></div>
+      <div class="artifact-info">
+        <span class="artifact-num">Exhibit No. 04</span>
+        <hr class="artifact-hr">
+        <p class="artifact-name">The Moment She Thought She Couldn't</p>
+        <div class="artifact-detail">
+          <div class="artifact-detail-row"><b>Medium</b>Fear, Hope, and One More Step</div>
+          <div class="artifact-detail-row"><b>Year</b>When it seemed impossible</div>
+        </div>
+        <span class="artifact-condition">Overcome</span>
+        <p class="artifact-note">"She was wrong. She could. She did."</p>
+      </div>
     </div>
+
+    <div class="artifact-card ac-blue animate-on-scroll">
+      <div class="artifact-case"><span class="artifact-glyph">◎</span></div>
+      <div class="artifact-info">
+        <span class="artifact-num">Exhibit No. 05</span>
+        <hr class="artifact-hr">
+        <p class="artifact-name">A Chapter That Hurt</p>
+        <div class="artifact-detail">
+          <div class="artifact-detail-row"><b>Medium</b>Memory, Grief, and Time</div>
+          <div class="artifact-detail-row"><b>Year</b>The pages she couldn't skip</div>
+        </div>
+        <span class="artifact-condition">Closed</span>
+        <p class="artifact-note">"The story doesn't end at the hardest page."</p>
+      </div>
+    </div>
+
+    <div class="artifact-card ac-cream animate-on-scroll">
+      <div class="artifact-case"><span class="artifact-glyph">✿</span></div>
+      <div class="artifact-info">
+        <span class="artifact-num">Exhibit No. 06</span>
+        <hr class="artifact-hr">
+        <p class="artifact-name">The Quiet That Followed</p>
+        <div class="artifact-detail">
+          <div class="artifact-detail-row"><b>Medium</b>Emptiness, Rest, and New Beginnings</div>
+          <div class="artifact-detail-row"><b>Year</b>After the storm passed</div>
+        </div>
+        <span class="artifact-condition">Transformed</span>
+        <p class="artifact-note">"Silence was not absence. It was space to breathe."</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -2162,7 +2195,7 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-document.querySelectorAll('.animate-on-scroll, .artwork-frame, .special-card, .portrait-frame').forEach(el => {
+document.querySelectorAll('.animate-on-scroll, .artwork-frame, .special-card, .portrait-frame, .artifact-card').forEach(el => {
   observer.observe(el);
 });
 
@@ -2560,6 +2593,9 @@ function closeSecret() {
 (function staggerCards() {
   document.querySelectorAll('.special-card').forEach((card, i) => {
     card.style.transitionDelay = `${i * 0.15}s`;
+  });
+  document.querySelectorAll('.artifact-card').forEach((card, i) => {
+    card.style.transitionDelay = `${i * 0.1}s`;
   });
   document.querySelectorAll('.artwork-frame').forEach((card, i) => {
     card.style.transitionDelay = `${i * 0.12}s`;
