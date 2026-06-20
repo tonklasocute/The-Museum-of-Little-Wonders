@@ -676,53 +676,63 @@ section {
   border-radius: 3px 3px 0 0;
   position: relative;
 }
-.telephone-pedestal {
+.msg-photo-display {
   display: flex; flex-direction: column; align-items: center;
-  cursor: pointer;
+  cursor: pointer; margin-top: 40px; gap: 20px;
   user-select: none;
 }
-.pedestal-base {
-  width: 180px; height: 20px;
-  background: linear-gradient(180deg, #8a7060, #5a4030);
-  border-radius: 4px 4px 0 0;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+.msg-photo-frame {
+  width: 200px;
+  background: white;
+  padding: 10px 10px 38px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.55), 0 4px 18px rgba(0,0,0,0.3);
+  border-radius: 2px;
+  transform: rotate(-2deg);
+  transition: transform 0.5s cubic-bezier(0.34,1.2,0.64,1), box-shadow 0.4s ease;
 }
-.pedestal-stand {
-  width: 60px; height: 70px;
-  background: linear-gradient(180deg, #7a6050, #5a4030);
-  margin: 0 auto;
+.msg-photo-display:hover .msg-photo-frame {
+  transform: rotate(0deg) scale(1.05);
+  box-shadow: 0 36px 100px rgba(0,0,0,0.6), 0 0 50px rgba(242,196,206,0.2);
 }
-.telephone-emoji {
-  font-size: 5rem;
+.msg-photo-img {
+  width: 100%; aspect-ratio: 3/4;
+  object-fit: cover; object-position: center top;
   display: block;
-  filter: drop-shadow(0 0 20px rgba(212,168,83,0.5));
-  transition: transform 0.3s ease;
-  animation: telephoneGlow 3s ease infinite alternate;
 }
-.telephone-pedestal:hover .telephone-emoji,
-.telephone-pedestal:active .telephone-emoji {
-  transform: scale(1.1) rotate(-5deg);
+.msg-photo-caption {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.88rem; font-style: italic;
+  color: rgba(255,255,255,0.4);
+  text-align: center; max-width: 260px; line-height: 1.6;
+}
+.msg-open-btn {
+  background: rgba(242,196,206,0.08);
+  border: 1px solid rgba(242,196,206,0.28);
+  color: rgba(242,196,206,0.8);
+  font-family: 'Lato', sans-serif;
+  font-size: 0.7rem; letter-spacing: 0.28em; text-transform: uppercase;
+  padding: 13px 34px; border-radius: 40px;
+  display: flex; align-items: center; gap: 10px;
+  transition: background 0.3s, border-color 0.3s, transform 0.25s;
+}
+.msg-photo-display:hover .msg-open-btn {
+  background: rgba(242,196,206,0.16);
+  border-color: rgba(242,196,206,0.5);
+  transform: translateY(-4px);
 }
 .exhibit-tag {
-  background: rgba(212,168,83,0.15);
-  border: 1px solid rgba(212,168,83,0.4);
+  background: rgba(212,168,83,0.12);
+  border: 1px solid rgba(212,168,83,0.32);
   color: var(--gold-light);
-  font-size: 0.72rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  padding: 6px 16px;
-  border-radius: 4px;
-  margin-top: 24px;
-  text-align: center;
-  line-height: 1.6;
+  font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 5px 14px; border-radius: 4px;
+  text-align: center; line-height: 1.6;
 }
 .tap-to-open {
-  margin-top: 16px;
+  margin-top: 4px;
   font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  color: rgba(255,255,255,0.4);
-  font-size: 0.9rem;
-  animation: pulse 2s ease infinite;
+  font-style: italic; color: rgba(255,255,255,0.32);
+  font-size: 0.85rem; animation: pulse 2s ease infinite;
 }
 
 /* ===================== CHAT MODAL ===================== */
@@ -796,8 +806,9 @@ section {
   animation: msgAppear 0.4s ease forwards;
   align-self: flex-start;
 }
-.msg-bubble.special {
-  background: linear-gradient(135deg, rgba(197,184,232,0.3), rgba(242,196,206,0.3));
+.msg-bubble.warm {
+  background: rgba(242,196,206,0.12);
+  border-color: rgba(242,196,206,0.28);
   font-style: italic;
 }
 .typing-indicator {
@@ -1909,16 +1920,18 @@ section {
     <div class="shelf-book" style="background:linear-gradient(180deg,#8fb4d4,#5a84a4);height:78px;width:30px;"></div>
   </div>
 
-  <!-- Telephone pedestal -->
-  <div class="telephone-pedestal animate-on-scroll" onclick="openChat()" style="margin-top:40px;">
-    <span class="telephone-emoji">☎️</span>
-    <div class="pedestal-base"></div>
-    <div class="pedestal-stand"></div>
-    <div style="width:200px;height:12px;background:linear-gradient(180deg,#5a4030,#3a2010);border-radius:0 0 4px 4px;"></div>
-    <div class="exhibit-tag">
-      Exhibit No. 04<br>Messages For Cloudy Days
+  <!-- Photo display -->
+  <div class="msg-photo-display animate-on-scroll" onclick="openChat()">
+    <div class="msg-photo-frame">
+      <img src="dada5.jpg" alt="" class="msg-photo-img">
     </div>
-    <p class="tap-to-open">tap to open ↑</p>
+    <p class="msg-photo-caption">"She deserves every kind word in the world."</p>
+    <div class="exhibit-tag">Exhibit No. 06 · Messages for Cloudy Days</div>
+    <div class="msg-open-btn">
+      <span>Open your message</span>
+      <span style="font-size:1.1rem;line-height:1">→</span>
+    </div>
+    <p class="tap-to-open">tap to open ✦</p>
   </div>
 </section>
 
@@ -2157,56 +2170,69 @@ function spawnMicroSparkles(el) {
 }
 
 /* ===================== CHAT FUNCTIONALITY ===================== */
-const chatMessages = [
-  { text: "Hey Dada 🌷", delay: 800 },
-  { text: "I heard today might feel a little heavy.", delay: 2200 },
-  { text: "That's okay.", delay: 3600 },
-  { text: "You don't have to be okay all the time.", delay: 5200 },
-  { text: "You don't need to have everything figured out.", delay: 7000 },
-  { text: "You are allowed to rest.", delay: 8600 },
-  { text: "You are allowed to cry.", delay: 10000 },
-  { text: "You are allowed to take your time.", delay: 11600 },
-  { text: "I know things haven't been easy lately.", delay: 13400 },
-  { text: "Getting your heart broken is one of the hardest things in the world.", delay: 15200 },
-  { text: "It doesn't mean you weren't enough.", delay: 17400 },
-  { text: "It doesn't mean you were too much.", delay: 19000 },
-  { text: "It just means that chapter wasn't the right one for you.", delay: 21000 },
-  { text: "And the story isn't over yet. 📖", delay: 23200, special: true },
-  { text: "...", delay: 25200 },
-  { text: "You know what I think about you?", delay: 27000 },
-  { text: "You're the kind of person who still believes in love — even after it hurts.", delay: 29000 },
-  { text: "That's not weakness.", delay: 31200 },
-  { text: "That's one of the bravest things a person can be.", delay: 32800, special: true },
-  { text: "You dream about flower bouquets and quiet museums.", delay: 35000 },
-  { text: "You listen to songs that feel like feelings.", delay: 37000 },
-  { text: "You cry at the right parts of movies.", delay: 38800 },
-  { text: "You love deeply and genuinely.", delay: 40600 },
-  { text: "And that — all of that — is beautiful. 🌸", delay: 42600, special: true },
-  { text: "...", delay: 44400 },
-  { text: "The right person will come along one day.", delay: 46200 },
-  { text: "And they will bring you flowers — not because they have to.", delay: 48400 },
-  { text: "But because they'll want to see your face when you get them.", delay: 50600 },
-  { text: "They'll walk slowly beside you in a gallery.", delay: 52800 },
-  { text: "And they'll play your favourite songs just to watch you sing.", delay: 55000 },
-  { text: "They'll be so lucky. 🌷", delay: 57200, special: true },
-  { text: "...", delay: 59000 },
-  { text: "But until then...", delay: 60800 },
-  { text: "Please be gentle with yourself.", delay: 62400 },
-  { text: "You deserve the same softness you give to everyone else.", delay: 64600 },
-  { text: "You deserve rest.", delay: 66600 },
-  { text: "You deserve warmth.", delay: 68200 },
-  { text: "You deserve to take up space.", delay: 70000 },
-  { text: "And if nobody told you today...", delay: 72200 },
-  { text: "I'm proud of you for making it this far.", delay: 74200, special: true },
-  { text: "For still being you — soft heart and all. 🌷", delay: 76400, special: true },
-  { text: "...", delay: 78200 },
-  { text: "I made this little museum for you.", delay: 80000 },
-  { text: "So that even on your cloudiest days...", delay: 82000 },
-  { text: "You'd have somewhere warm to come.", delay: 84000 },
-  { text: "A reminder that someone sees how wonderful you are.", delay: 86400 },
-  { text: "Someone is quietly, genuinely cheering for you. 🌸", delay: 89000, special: true },
-  { text: "Always. 🌷", delay: 91400, special: true },
+// Build message delays dynamically based on text length
+const _chatRaw = [
+  { text: "Hey Dada 🌷" },
+  { text: "I heard today might feel a little heavy." },
+  { text: "That's okay." },
+  { text: "Really — it is." },
+  { text: "You don't have to hold everything together right now." },
+  { text: "You're allowed to feel exactly what you're feeling." },
+  { text: "Whether it's sadness, or confusion, or just emptiness." },
+  { text: "Every single bit of it is valid." },
+  { text: "..." },
+  { text: "Getting your heart broken is one of the hardest things in the world." },
+  { text: "Not because you weren't enough." },
+  { text: "But because you loved — fully, openly, without holding back." },
+  { text: "That kind of love takes real courage." },
+  { text: "It means you're the kind of person who shows up completely." },
+  { text: "That is rare. That is beautiful." },
+  { text: "..." },
+  { text: "Don't let this moment make you believe otherwise." },
+  { text: "You are so much more than this one chapter." },
+  { text: "You are someone who still believes in flowers and slow walks and beautiful things." },
+  { text: "That hopeful, romantic heart of yours?" },
+  { text: "It is one of the most wonderful things about you." },
+  { text: "Protect it. Don't let anyone make you feel like it's too much." },
+  { text: "It is not too much." },
+  { text: "It is exactly right. 🌸", warm: true },
+  { text: "..." },
+  { text: "One day — not today, maybe not soon —" },
+  { text: "Someone will come along who knows exactly how to love you." },
+  { text: "They will bring you flowers just to see your face when you get them." },
+  { text: "They will walk slowly beside you through galleries and quiet streets." },
+  { text: "They'll play your favourite songs and stay just to watch you sing." },
+  { text: "They will be so, so lucky. 🌷", warm: true },
+  { text: "..." },
+  { text: "But until then — please be gentle with yourself." },
+  { text: "You deserve the same softness you give to everyone else." },
+  { text: "You deserve to heal slowly, at your own pace." },
+  { text: "You deserve rest." },
+  { text: "You deserve warmth." },
+  { text: "You deserve to wake up one morning and simply feel okay again." },
+  { text: "And I believe — truly — that day is coming." },
+  { text: "..." },
+  { text: "I made this little museum for you." },
+  { text: "So that even on your cloudiest days," },
+  { text: "You'd have somewhere warm and quiet to come." },
+  { text: "A reminder that someone sees how wonderful you are." },
+  { text: "I'm so proud of you for making it this far. 🌸", warm: true },
+  { text: "For still being you — soft heart and all." },
+  { text: "Someone is quietly, genuinely cheering for you." },
+  { text: "Always. 🌷", warm: true },
 ];
+
+let _chatT = 900;
+const chatMessages = _chatRaw.map(m => {
+  const delay = _chatT;
+  if (m.text === "...") {
+    _chatT += 2200;
+  } else {
+    // ~40ms per character + 500ms buffer, minimum 1500ms
+    _chatT += Math.max(1500, m.text.length * 40) + 500;
+  }
+  return { text: m.text, delay, special: m.warm || false };
+});
 
 let chatStarted = false;
 let chatTimers = [];
@@ -2238,7 +2264,7 @@ function startChat() {
 
       // Show message
       const bubble = document.createElement('div');
-      bubble.className = 'msg-bubble' + (msg.special ? ' special' : '');
+      bubble.className = 'msg-bubble' + (msg.special ? ' warm' : '');
       bubble.textContent = msg.text;
       container.appendChild(bubble);
       container.scrollTop = container.scrollHeight;
