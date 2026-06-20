@@ -442,79 +442,133 @@ section {
   position: relative;
   overflow: hidden;
 }
-.fairytale-text {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.3rem, 4vw, 2.2rem);
-  color: var(--white);
-  line-height: 1.8;
-  max-width: 600px;
-  text-shadow: 0 0 30px rgba(197,184,232,0.4);
-}
-.fairytale-text em {
-  color: var(--gold-light);
-  font-style: normal;
-  display: block;
-  margin-top: 16px;
-  font-size: 0.8em;
-}
-.ft-identity { margin-bottom: 36px; }
-.ft-badge {
-  display: inline-block;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1rem; font-style: italic;
-  letter-spacing: 0.16em;
-  color: rgba(242,196,206,0.92);
-  border: 1px solid rgba(242,196,206,0.32);
-  padding: 9px 28px; border-radius: 99px;
-  background: rgba(242,196,206,0.07);
-}
-.ft-dream-section {
-  margin-top: 60px; width: 100%; max-width: 440px;
-}
-.ft-dream-label {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.78rem; letter-spacing: 0.32em;
-  color: rgba(240,216,144,0.6); text-transform: uppercase;
-  text-align: center; margin-bottom: 38px;
-}
-.ft-steps { display: flex; flex-direction: column; align-items: flex-start; }
-.ft-step { display: flex; align-items: center; gap: 20px; width: 100%; }
-.ft-step-icon {
-  width: 54px; height: 54px; border-radius: 50%;
-  background: rgba(255,255,255,0.05);
+/* ── Clinical Assessment Document ── */
+.clinical-doc {
+  width: 100%; max-width: 600px;
+  background: rgba(255,255,255,0.028);
   border: 1px solid rgba(255,255,255,0.1);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.45rem; flex-shrink: 0;
-  box-shadow: 0 0 24px rgba(242,196,206,0.1);
+  border-radius: 10px; padding: 36px 40px;
+  position: relative; z-index: 2;
+  backdrop-filter: blur(12px);
+  font-family: 'Lato', sans-serif;
+  margin-top: 16px;
 }
-.ft-step-text { display: flex; flex-direction: column; gap: 4px; }
-.ft-step-text strong {
-  font-family: 'Playfair Display', serif;
-  font-size: 1rem; color: rgba(255,255,255,0.88); font-weight: 600;
+/* Subtle ruled-paper lines */
+.clinical-doc::before {
+  content: ''; position: absolute; inset: 0; border-radius: 10px;
+  background: repeating-linear-gradient(transparent, transparent 29px, rgba(255,255,255,0.018) 29px, rgba(255,255,255,0.018) 30px);
+  pointer-events: none;
 }
-.ft-step-text span {
+.clinical-stamp {
+  display: inline-block;
+  border: 1.5px solid rgba(232,160,180,0.38);
+  color: rgba(232,160,180,0.52);
+  font-size: 0.57rem; letter-spacing: 0.3em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 3px;
+  font-weight: 700; margin-bottom: 14px;
+}
+.clinical-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 0.88rem; color: rgba(255,255,255,0.4); font-style: italic;
+  font-size: 2rem; font-weight: 700;
+  color: white; margin-bottom: 3px; line-height: 1.2;
 }
-.ft-step-line {
-  width: 1px; height: 38px;
-  background: linear-gradient(180deg, rgba(242,196,206,0.28), rgba(197,184,232,0.18));
-  margin-left: 26px;
+.clinical-subtitle {
+  font-size: 0.68rem; color: rgba(255,255,255,0.25);
+  letter-spacing: 0.1em; margin-bottom: 0;
 }
-.ft-note {
-  margin-top: 68px;
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1rem, 2.8vw, 1.35rem);
-  color: rgba(255,255,255,0.7); line-height: 2;
-  max-width: 500px; text-align: center;
-  text-shadow: 0 0 30px rgba(197,184,232,0.22);
+.clinical-hr {
+  height: 1px; border: none;
+  background: rgba(255,255,255,0.08); margin: 20px 0;
 }
-.ft-note em { color: var(--gold-light); font-style: normal; }
-.castle-silhouette {
-  width: min(500px, 85vw);
-  margin: 60px auto 0;
-  opacity: 0.25;
-  filter: drop-shadow(0 0 30px rgba(197,184,232,0.5));
+.clinical-field {
+  display: flex; gap: 12px; align-items: baseline; margin-bottom: 7px;
+}
+.clinical-lbl {
+  font-size: 0.58rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.14em; color: rgba(255,255,255,0.2);
+  min-width: 130px; flex-shrink: 0;
+}
+.clinical-val {
+  font-size: 0.86rem; color: rgba(255,255,255,0.65); font-style: italic;
+  font-family: 'Cormorant Garamond', serif; font-size: 0.98rem;
+}
+.clinical-section-hd {
+  font-size: 0.56rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.26em; color: rgba(212,168,83,0.52); margin-bottom: 14px;
+}
+/* Findings grid */
+.clinical-findings { display: flex; flex-direction: column; gap: 8px; }
+.clinical-finding {
+  display: flex; gap: 14px; align-items: baseline;
+  padding: 9px 14px; border-radius: 6px;
+  background: rgba(255,255,255,0.022);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.finding-k {
+  font-size: 0.66rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.07em; color: rgba(197,184,232,0.65);
+  min-width: 118px; flex-shrink: 0;
+}
+.finding-v {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem; color: rgba(255,255,255,0.52); font-style: italic;
+}
+/* Diagnosis */
+.clinical-diagnosis {
+  display: flex; flex-direction: column; gap: 5px;
+}
+.diag-main {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.12rem; font-weight: 700; color: white;
+}
+.diag-sub {
+  font-size: 0.82rem; color: rgba(232,160,180,0.65);
+  font-style: italic;
+}
+/* Treatment list */
+.clinical-treatment {
+  display: flex; flex-direction: column; gap: 7px;
+}
+.clinical-tx-row {
+  display: flex; gap: 12px; align-items: baseline;
+  font-size: 0.84rem; color: rgba(255,255,255,0.48);
+}
+.tx-num {
+  font-weight: 700; font-size: 0.62rem; letter-spacing: 0.1em;
+  color: rgba(212,168,83,0.48); min-width: 20px;
+}
+/* Prognosis */
+.clinical-prognosis { display: flex; flex-direction: column; gap: 8px; }
+.prognosis-verdict {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.55rem; font-weight: 700;
+  color: rgba(100,220,190,0.85);
+}
+.clinical-prognosis p {
+  font-size: 0.86rem; color: rgba(255,255,255,0.45);
+  line-height: 1.75; margin: 0; font-style: italic;
+  font-family: 'Cormorant Garamond', serif; font-size: 0.98rem;
+}
+/* Final note */
+.clinical-note {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.96rem; font-style: italic;
+  color: rgba(255,255,255,0.42); line-height: 1.75;
+  text-align: center; padding: 0 8px;
+  border-left: none; border-top: 1px solid rgba(255,255,255,0.07);
+  padding-top: 20px; margin-top: 0;
+}
+.clinical-footer {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 20px; padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  font-size: 0.58rem; color: rgba(255,255,255,0.18);
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+@media (max-width: 600px) {
+  .clinical-doc { padding: 26px 22px; }
+  .clinical-lbl, .finding-k { min-width: 90px; }
+  .clinical-footer { flex-direction: column; gap: 6px; text-align: center; }
 }
 .moon {
   position: absolute;
@@ -1729,104 +1783,95 @@ section {
   <div class="cloud" style="width:180px;height:30px;top:30%;left:-80px;animation-duration:34s;animation-delay:8s;"></div>
   <div class="cloud" style="width:220px;height:35px;top:55%;left:-90px;animation-duration:40s;animation-delay:15s;"></div>
 
-  <p class="section-label animate-on-scroll" style="color:rgba(255,255,255,0.4)">Fairy Tale Corner · Room 03</p>
+  <p class="section-label animate-on-scroll" style="color:rgba(255,255,255,0.35)">Clinical Room · Room 03</p>
 
-  <div class="ft-identity animate-on-scroll">
-    <span class="ft-badge">♡ Hopeless Romantic Girl</span>
-  </div>
+  <div class="clinical-doc animate-on-scroll">
 
-  <div class="fairytale-text animate-on-scroll">
-    "Some people stop believing in magic.<br><br>
-    <em>She never did."</em>
-  </div>
+    <div class="clinical-stamp">Strictly Confidential</div>
+    <h2 class="clinical-title">Patient Assessment</h2>
+    <p class="clinical-subtitle">Museum of Little Wonders — Internal Record</p>
+    <hr class="clinical-hr">
 
-  <div class="ft-dream-section animate-on-scroll">
-    <p class="ft-dream-label">✦ Her Dream Date ✦</p>
-    <div class="ft-steps">
-      <div class="ft-step">
-        <div class="ft-step-icon">🌷</div>
-        <div class="ft-step-text">
-          <strong>A Flower Bouquet</strong>
-          <span>Before anything else — always</span>
-        </div>
+    <div class="clinical-field">
+      <span class="clinical-lbl">Patient</span>
+      <span class="clinical-val">Known as Dada</span>
+    </div>
+    <div class="clinical-field">
+      <span class="clinical-lbl">Occupation</span>
+      <span class="clinical-val">Doctor of Dental Surgery</span>
+    </div>
+    <div class="clinical-field">
+      <span class="clinical-lbl">Chief Complaint</span>
+      <span class="clinical-val">"A little quiet lately. A little sad."</span>
+    </div>
+    <div class="clinical-field">
+      <span class="clinical-lbl">Date of Record</span>
+      <span class="clinical-val">Today — and every cloudy day after</span>
+    </div>
+
+    <hr class="clinical-hr">
+    <p class="clinical-section-hd">Clinical Findings</p>
+    <div class="clinical-findings">
+      <div class="clinical-finding">
+        <span class="finding-k">Enamel of Steel</span>
+        <span class="finding-v">Soul that bends, but never breaks</span>
       </div>
-      <div class="ft-step-line"></div>
-      <div class="ft-step">
-        <div class="ft-step-icon">🖼️</div>
-        <div class="ft-step-text">
-          <strong>Museum or Art Gallery</strong>
-          <span>Walking slowly, noticing everything</span>
-        </div>
+      <div class="clinical-finding">
+        <span class="finding-k">Soft Tissue Exam</span>
+        <span class="finding-v">Heart: unusually large, fully intact</span>
       </div>
-      <div class="ft-step-line"></div>
-      <div class="ft-step">
-        <div class="ft-step-icon">🎵</div>
-        <div class="ft-step-text">
-          <strong>A Pop Song on the Way Home</strong>
-          <span>Sung slightly off-key, perfectly happy</span>
-        </div>
+      <div class="clinical-finding">
+        <span class="finding-k">Occlusion Check</span>
+        <span class="finding-v">Perfect — she sees the world as it should be</span>
+      </div>
+      <div class="clinical-finding">
+        <span class="finding-k">Vital Signs</span>
+        <span class="finding-v">Still believes in love. Pulse: strong.</span>
+      </div>
+      <div class="clinical-finding">
+        <span class="finding-k">Pain Tolerance</span>
+        <span class="finding-v">Higher than she gives herself credit for</span>
       </div>
     </div>
+
+    <hr class="clinical-hr">
+    <p class="clinical-section-hd">Diagnosis</p>
+    <div class="clinical-diagnosis">
+      <span class="diag-main">Chronic Hopeless Romanticism — Type I</span>
+      <span class="diag-sub">(Benign. Rare. Extraordinarily beautiful.)</span>
+    </div>
+
+    <hr class="clinical-hr">
+    <p class="clinical-section-hd">Recommended Treatment</p>
+    <div class="clinical-treatment">
+      <div class="clinical-tx-row"><span class="tx-num">01</span>Flowers — one bouquet, minimum, no occasion required</div>
+      <div class="clinical-tx-row"><span class="tx-num">02</span>A museum or art gallery visit — walking slowly</div>
+      <div class="clinical-tx-row"><span class="tx-num">03</span>A good pop song on the way home</div>
+      <div class="clinical-tx-row"><span class="tx-num">04</span>Time, rest, and radical gentleness toward herself</div>
+    </div>
+
+    <hr class="clinical-hr">
+    <p class="clinical-section-hd">Prognosis</p>
+    <div class="clinical-prognosis">
+      <span class="prognosis-verdict">Outstanding.</span>
+      <p>Patient is expected to recover fully. <br>
+      The right chapter is still ahead of her. <br>
+      She has survived everything so far — this too.</p>
+    </div>
+
+    <hr class="clinical-hr">
+    <p class="clinical-note">
+      "Whoever is lucky enough to love her next should be advised:<br>
+      she will completely change their life.<br>
+      In the very best way."
+    </p>
+
+    <div class="clinical-footer">
+      <span>Issued by: The Museum of Little Wonders</span>
+      <span>Classification: Top Secret ♡</span>
+    </div>
+
   </div>
-
-  <div class="ft-note animate-on-scroll">
-    "She's been a little quiet lately.<br>
-    A little sad. A little lost.<br><br>
-    But she still believes in love stories.<br>
-    Still chooses flowers. Still stops<br>
-    at art that moves her.<br><br>
-    Whoever gets to love her next<br>
-    <em>will be the luckiest person alive."</em>
-  </div>
-
-  <!-- Castle SVG silhouette -->
-  <svg class="castle-silhouette animate-on-scroll" viewBox="0 0 600 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g fill="rgba(255,255,255,0.8)">
-      <!-- Towers -->
-      <rect x="20" y="120" width="60" height="180"/>
-      <rect x="10" y="100" width="80" height="30"/>
-      <rect x="5" y="90" width="10" height="20"/>
-      <rect x="25" y="90" width="10" height="20"/>
-      <rect x="45" y="90" width="10" height="20"/>
-      <rect x="65" y="90" width="10" height="20"/>
-      <rect x="75" y="90" width="10" height="20"/>
-      <polygon points="50,30 15,100 85,100" fill="rgba(255,255,255,0.7)"/>
-
-      <rect x="520" y="120" width="60" height="180"/>
-      <rect x="510" y="100" width="80" height="30"/>
-      <rect x="505" y="90" width="10" height="20"/>
-      <rect x="525" y="90" width="10" height="20"/>
-      <rect x="545" y="90" width="10" height="20"/>
-      <rect x="565" y="90" width="10" height="20"/>
-      <rect x="575" y="90" width="10" height="20"/>
-      <polygon points="550,30 515,100 585,100" fill="rgba(255,255,255,0.7)"/>
-
-      <!-- Middle tower -->
-      <rect x="240" y="80" width="120" height="220"/>
-      <rect x="220" y="55" width="160" height="35"/>
-      <rect x="215" y="40" width="15" height="20"/>
-      <rect x="245" y="40" width="15" height="20"/>
-      <rect x="275" y="40" width="15" height="20"/>
-      <rect x="305" y="40" width="15" height="20"/>
-      <rect x="335" y="40" width="15" height="20"/>
-      <rect x="355" y="40" width="15" height="20"/>
-      <polygon points="300,0 225,55 375,55" fill="rgba(255,255,255,0.7)"/>
-
-      <!-- Walls -->
-      <rect x="80" y="180" width="160" height="120"/>
-      <rect x="360" y="180" width="160" height="120"/>
-
-      <!-- Gate -->
-      <rect x="260" y="220" width="80" height="80" fill="rgba(0,0,0,0.3)"/>
-      <path d="M260 220 Q300 180 340 220" fill="rgba(0,0,0,0.3)"/>
-
-      <!-- Windows -->
-      <rect x="270" y="110" width="25" height="35" rx="12" fill="rgba(212,168,83,0.5)"/>
-      <rect x="305" y="110" width="25" height="35" rx="12" fill="rgba(212,168,83,0.5)"/>
-      <rect x="270" y="160" width="25" height="35" rx="12" fill="rgba(212,168,83,0.3)"/>
-      <rect x="305" y="160" width="25" height="35" rx="12" fill="rgba(212,168,83,0.3)"/>
-    </g>
-  </svg>
 </section>
 
 <!-- ===================== WHAT MAKES YOU SPECIAL ===================== -->
