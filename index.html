@@ -295,14 +295,14 @@ section {
 .bouquet-svg .bb    { animation: flowerBloom 1.0s ease 1.3s both; transform-origin: 130px 195px; }
 .bouquet-svg .wrap  { animation: flowerBloom 0.6s ease 0.1s both; transform-origin: 130px 310px; }
 
-/* ===================== GALLERY ROOM — ARTIFACT CASES ===================== */
+/* ===================== GALLERY ROOM — NEWSPAPER ===================== */
 #gallery {
-  background: #07050f;
+  background: #09070d;
   overflow: hidden;
 }
 .gallery-header {
   text-align: center;
-  padding: 100px 24px 72px;
+  padding: 100px 24px 50px;
   position: relative;
 }
 .archive-dust {
@@ -312,7 +312,114 @@ section {
 #gallery .gallery-header .section-title { color: white; }
 #gallery .gallery-header .section-desc { color: rgba(255,255,255,0.4); font-style: italic; }
 
-/* Grid of artifact display cases */
+/* Gazette wrapper */
+.gazette-wrap {
+  max-width: 680px; margin: 0 auto; padding: 0 22px 110px;
+}
+.gazette {
+  background: #f5efd8;
+  padding: 34px 38px 38px;
+  box-shadow: 0 28px 90px rgba(0,0,0,0.65), 0 4px 20px rgba(0,0,0,0.3);
+  transform: rotate(-0.4deg);
+  position: relative;
+  opacity: 0; transform: translateY(44px) rotate(-0.4deg);
+  transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.22,1,0.36,1);
+}
+.gazette.visible { opacity: 1; transform: translateY(0) rotate(-0.4deg); }
+
+/* Masthead */
+.gazette-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 6vw, 2.4rem);
+  font-weight: 700; text-align: center; letter-spacing: 0.06em;
+  color: #1a1208; line-height: 1;
+  border-bottom: 3px double rgba(0,0,0,0.55);
+  padding-bottom: 8px; margin-bottom: 5px;
+}
+.gazette-tagline {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.58rem; color: rgba(0,0,0,0.42);
+  letter-spacing: 0.09em; text-transform: uppercase;
+  font-family: 'Lato', sans-serif;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0,0,0,0.22);
+  margin-bottom: 0;
+}
+.gazette-rule { height: 1px; background: rgba(0,0,0,0.18); border: none; margin: 12px 0; }
+.gazette-dbl { border: none; border-top: 3px double rgba(0,0,0,0.45); margin: 14px 0; }
+
+/* Main headline */
+.gazette-main-hl {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.25rem, 4.5vw, 1.9rem);
+  font-weight: 700; text-align: center; text-transform: uppercase;
+  color: #1a1208; line-height: 1.18; margin: 14px 0 8px;
+  letter-spacing: 0.01em;
+}
+.gazette-deck {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.88rem; font-style: italic;
+  color: rgba(0,0,0,0.52); text-align: center;
+  margin-bottom: 10px; line-height: 1.5;
+}
+.gazette-lede {
+  font-size: 0.76rem; color: rgba(0,0,0,0.58);
+  line-height: 1.75; font-family: 'Lato', sans-serif;
+  text-align: justify;
+}
+
+/* Pull quote */
+.gazette-pull {
+  border-top: 2px solid rgba(0,0,0,0.38);
+  border-bottom: 2px solid rgba(0,0,0,0.38);
+  padding: 10px 18px; margin: 14px 0;
+  text-align: center;
+}
+.gazette-pull p {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.94rem; font-style: italic;
+  color: rgba(0,0,0,0.62); line-height: 1.5; margin: 0;
+}
+
+/* Two-column layout */
+.gazette-cols {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 0 18px; margin-top: 4px;
+}
+.gazette-divider { background: rgba(0,0,0,0.16); }
+.gazette-sec-lbl {
+  display: block; font-family: 'Lato', sans-serif;
+  font-size: 0.5rem; font-weight: 700;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: rgba(0,0,0,0.32); margin-bottom: 7px;
+}
+.gazette-col-hl {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.92rem; font-weight: 700;
+  text-transform: uppercase; color: #1a1208;
+  line-height: 1.22; margin-bottom: 8px;
+}
+.gazette-col-body {
+  font-size: 0.71rem; color: rgba(0,0,0,0.52);
+  line-height: 1.7; font-family: 'Lato', sans-serif;
+}
+.gazette-footer-txt {
+  text-align: center; margin-top: 16px;
+  padding-top: 10px; border-top: 1px solid rgba(0,0,0,0.18);
+  font-size: 0.53rem; color: rgba(0,0,0,0.28);
+  letter-spacing: 0.14em; text-transform: uppercase;
+  font-family: 'Lato', sans-serif;
+}
+
+@media (max-width: 600px) {
+  .gazette { padding: 22px 20px 26px; }
+  .gazette-cols { grid-template-columns: 1fr; }
+  .gazette-divider { display: none; }
+  .gazette-tagline { flex-direction: column; gap: 3px; }
+}
+
+/* [UNUSED] artifact-grid kept for reference, not rendered */
 .artifact-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1669,7 +1776,7 @@ section {
   <button class="continue-btn animate-on-scroll" onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">Continue →</button>
 </section>
 
-<!-- ===================== GALLERY ROOM — DARK ARCHIVE ===================== -->
+<!-- ===================== GALLERY ROOM — NEWSPAPER ===================== -->
 <section id="gallery">
   <div class="gallery-header">
     <div class="archive-dust" id="archive-dust"></div>
@@ -1679,7 +1786,67 @@ section {
     <p class="section-desc animate-on-scroll">"A collection of quiet victories."</p>
   </div>
 
-  <div class="artifact-grid">
+  <div class="gazette-wrap">
+  <div class="gazette">
+
+    <!-- Masthead -->
+    <div class="gazette-name">The Little Wonders Gazette</div>
+    <div class="gazette-tagline">
+      <span>Gallery Room · Room 02</span>
+      <span>A Collection of Quiet Victories</span>
+      <span>Est. Today</span>
+    </div>
+
+    <!-- Main story -->
+    <h2 class="gazette-main-hl">Local Woman Survives Heartbreak,<br>Still Orders Flowers</h2>
+    <p class="gazette-deck">Area dentist described as "a little sad" — still showing up anyway</p>
+    <hr class="gazette-rule">
+    <p class="gazette-lede">In what sources are calling an act of quiet courage, a local woman survived one of the hardest chapters of her life without losing the warmth that makes her who she is. She cried when she needed to. She rested when she could. And when the flowers came — she still smiled at them. Because some things, she has always known, are worth believing in.</p>
+
+    <div class="gazette-pull">
+      <p>"She was wrong about one thing: that she wouldn't make it through.<br>She did. She always does."</p>
+    </div>
+
+    <!-- Two columns — round 1 -->
+    <hr class="gazette-dbl">
+    <div class="gazette-cols">
+      <div>
+        <span class="gazette-sec-lbl">Local Report</span>
+        <h3 class="gazette-col-hl">Bad Days End; Witness Reports Subject Still Believes in Love</h3>
+        <p class="gazette-col-body">Officials confirm that mornings have continued to arrive on schedule. "It always came," a source close to the subject said quietly. "And she always made it through to see it."</p>
+      </div>
+      <div class="gazette-divider"></div>
+      <div>
+        <span class="gazette-sec-lbl">Breaking</span>
+        <h3 class="gazette-col-hl">Woman Who Thought She Couldn't — Could, Did, and Will Again</h3>
+        <p class="gazette-col-body">In a development that surprised no one who knows her, the subject proved herself wrong about giving up. The quiet victory was celebrated with a long sleep and a very good song.</p>
+      </div>
+    </div>
+
+    <!-- Two columns — round 2 -->
+    <hr class="gazette-dbl">
+    <div class="gazette-cols">
+      <div>
+        <span class="gazette-sec-lbl">Evening Edition</span>
+        <h3 class="gazette-col-hl">Sleepless Night Concludes; Sunrise Arrived as Scheduled</h3>
+        <p class="gazette-col-body">She stayed up too late, thinking too much. The sun rose anyway. She made coffee. She continued. This, experts agree, absolutely counts.</p>
+      </div>
+      <div class="gazette-divider"></div>
+      <div>
+        <span class="gazette-sec-lbl">On the Record</span>
+        <h3 class="gazette-col-hl">Quiet Storm Passes; Dreamer Found Still Turning the Page</h3>
+        <p class="gazette-col-body">The hardest chapter has been closed. The story, all sources agree, is nowhere near finished. The next page is blank — and entirely hers to write.</p>
+      </div>
+    </div>
+
+    <div class="gazette-footer-txt">
+      Printed by The Museum of Little Wonders · All stories verified · All victories real · Circulation: One
+    </div>
+
+  </div>
+  </div>
+
+  <div class="artifact-grid" style="display:none">
 
     <div class="artifact-card ac-rose animate-on-scroll">
       <div class="artifact-case"><span class="artifact-glyph">♡</span></div>
@@ -2242,7 +2409,7 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-document.querySelectorAll('.animate-on-scroll, .artwork-frame, .special-card, .portrait-frame, .artifact-card').forEach(el => {
+document.querySelectorAll('.animate-on-scroll, .artwork-frame, .special-card, .portrait-frame, .artifact-card, .gazette').forEach(el => {
   observer.observe(el);
 });
 
