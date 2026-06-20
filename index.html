@@ -210,6 +210,18 @@ section {
   transform: translateY(-3px) scale(1.02);
   box-shadow: 0 14px 40px rgba(197,184,232,0.5);
 }
+.hero-easter-hint {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 0.1em;
+  margin-top: 10px;
+  opacity: 0;
+  animation: fadeUp 1s ease 1.3s forwards;
+  transition: color 0.4s ease;
+}
+.hero-easter-hint:hover { color: rgba(255,255,255,0.5); }
 .hero-scroll-hint {
   position: absolute; bottom: 32px;
   display: flex; flex-direction: column; align-items: center; gap: 8px;
@@ -1812,6 +1824,7 @@ section {
   <span class="hero-badge">A Personal Exhibition · Est. Today</span>
   <h1 class="hero-title">The Museum of<br><span>Little Wonders</span></h1>
   <p class="hero-subtitle">"A tiny exhibition made for a hopeless romantic girl."</p>
+  <p class="hero-easter-hint">✦ psst — click the title 3 times ✦</p>
   <button class="hero-btn" onclick="document.getElementById('entrance').scrollIntoView({behavior:'smooth'})">Begin Tour ✦</button>
   <div class="hero-scroll-hint">Scroll</div>
 </section>
